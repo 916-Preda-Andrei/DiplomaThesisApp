@@ -1,0 +1,2 @@
+class TrafficAppException(Exception):
+    pass

@@ -1,0 +1,14 @@
+<configuration>
+    <input>
+        <edge-files value="app.edg.xml"/>
+        <node-files value="app.nod.xml"/>
+        <type-files value="app.typ.xml"/>
+        <connection-files value="app.con.xml"/>
+    </input>
+    <output>
+        <output-file value="app.net.xml"/>
+    </output>
+    <processing>
+        <no-turnarounds value="true"/>
+    </processing>
+</configuration>

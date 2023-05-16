@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<connections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+   <connection from="E_1_0" to="E_0_3" fromLane="0" toLane="0"/>
+   <connection from="E_1_0" to="E_0_3" fromLane="0" toLane="1"/>
+   <connection from="E_1_0" to="E_0_3" fromLane="0" toLane="2"/>
+   <connection from="E_1_0" to="E_0_3" fromLane="0" toLane="3"/>
+   <connection from="E_1_0" to="E_0_2" fromLane="1" toLane="0"/>
+   <connection from="E_1_0" to="E_0_2" fromLane="1" toLane="1"/>
+   <connection from="E_1_0" to="E_0_2" fromLane="2" toLane="2"/>
+   <connection from="E_1_0" to="E_0_2" fromLane="2" toLane="3"/>
+   <connection from="E_1_0" to="E_0_2" fromLane="3" toLane="4"/>
+   <connection from="E_1_0" to="E_0_4" fromLane="4" toLane="0"/>
+   <connection from="E_1_0" to="E_0_4" fromLane="4" toLane="1"/>
+   <connection from="E_2_0" to="E_0_4" fromLane="0" toLane="0"/>
+   <connection from="E_2_0" to="E_0_4" fromLane="0" toLane="1"/>
+   <connection from="E_2_0" to="E_0_1" fromLane="1" toLane="0"/>
+   <connection from="E_2_0" to="E_0_1" fromLane="2" toLane="1"/>
+   <connection from="E_2_0" to="E_0_1" fromLane="3" toLane="2"/>
+   <connection from="E_2_0" to="E_0_3" fromLane="4" toLane="0"/>
+   <connection from="E_2_0" to="E_0_3" fromLane="4" toLane="1"/>
+   <connection from="E_2_0" to="E_0_3" fromLane="5" toLane="2"/>
+   <connection from="E_2_0" to="E_0_3" fromLane="5" toLane="3"/>
+   <connection from="E_3_0" to="E_0_2" fromLane="0" toLane="0"/>
+   <connection from="E_3_0" to="E_0_2" fromLane="0" toLane="1"/>
+   <connection from="E_3_0" to="E_0_2" fromLane="0" toLane="2"/>
+   <connection from="E_3_0" to="E_0_2" fromLane="1" toLane="3"/>
+   <connection from="E_3_0" to="E_0_2" fromLane="1" toLane="4"/>
+   <connection from="E_3_0" to="E_0_4" fromLane="2" toLane="0"/>
+   <connection from="E_3_0" to="E_0_4" fromLane="3" toLane="1"/>
+   <connection from="E_3_0" to="E_0_1" fromLane="4" toLane="0"/>
+   <connection from="E_3_0" to="E_0_1" fromLane="4" toLane="1"/>
+   <connection from="E_3_0" to="E_0_1" fromLane="4" toLane="2"/>
+   <connection from="E_4_0" to="E_0_1" fromLane="0" toLane="0"/>
+   <connection from="E_4_0" to="E_0_1" fromLane="0" toLane="1"/>
+   <connection from="E_4_0" to="E_0_1" fromLane="0" toLane="2"/>
+   <connection from="E_4_0" to="E_0_3" fromLane="1" toLane="0"/>
+   <connection from="E_4_0" to="E_0_3" fromLane="1" toLane="1"/>
+   <connection from="E_4_0" to="E_0_3" fromLane="1" toLane="2"/>
+   <connection from="E_4_0" to="E_0_3" fromLane="1" toLane="3"/>
+   <connection from="E_4_0" to="E_0_2" fromLane="2" toLane="0"/>
+   <connection from="E_4_0" to="E_0_2" fromLane="2" toLane="1"/>
+   <connection from="E_4_0" to="E_0_2" fromLane="2" toLane="2"/>
+   <connection from="E_4_0" to="E_0_2" fromLane="2" toLane="3"/>
+   <connection from="E_4_0" to="E_0_2" fromLane="2" toLane="4"/>
+</connections>

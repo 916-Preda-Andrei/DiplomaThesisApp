@@ -1,0 +1,71 @@
+import optparse
+import os
+import sys
+from enum import Enum
+
+from sumolib import checkBinary
+
+from model.MoveType import MoveType
+from model.StreetType import StreetType
+
+directionMapper = {(1, 2): [MoveType.WER2], (1, 3): [MoveType.WER2, MoveType.L2R2], (1, 4): [MoveType.L1R1],
+                   (2, 1): [MoveType.WER2],
+                   (2, 3): [MoveType.L1R1], (2, 4): [MoveType.WER2, MoveType.L2R2], (3, 1): [MoveType.L2R2],
+                   (3, 2): [MoveType.L1R1, MoveType.NSR1],
+                   (3, 4): [MoveType.NSR1], (4, 1): [MoveType.NSR1, MoveType.L1R1], (4, 2): [MoveType.L2R2],
+                   (4, 3): [MoveType.NSR1]}
+
+allMoveTypes = [MoveType.NSR1, MoveType.WER2, MoveType.L1R1, MoveType.L2R2]
+allStreetTypes = [StreetType.WEST, StreetType.EAST, StreetType.SOUTH, StreetType.NORTH]
+
+def checkSumoHome():
+    if 'SUMO_HOME' in os.environ:
+        tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
+        sys.path.append(tools)
+    else:
+        sys.exit("please declare environment variable 'SUMO_HOME'")
+
+
+def get_options():
+    optParser = optparse.OptionParser()
+    optParser.add_option("--nogui", action="store_true",
+                         default=True, help="run the commandline version of sumo")
+
+    options, args = optParser.parse_args()
+    return options
+
+
+def getSumoBinary():
+    checkSumoHome()
+    options = get_options()
+    if options.nogui:
+        return checkBinary('sumo')
+    return checkBinary('sumo-gui')
+
+class Utils(Enum):
+    EPISODES = 100
+    GAMMA = 0.9
+
+    # Learning rate
+    ALPHA = 0.0001
+
+    INPUT_DIMENSIONS = 25
+    NUMBER_OF_ACTIONS = 4
+    MEMORY_SIZE = 100000
+    BATCH_SIZE = 64
+
+    # Epsilon settings
+    EPSILON = 1.0
+    EPSILON_DECREASE = 0.999
+    EPSILON_END = 0.01
+
+    MODEL_FILENAME = "dqn_model.h5"
+
+    PATH_TO_SUMOCFG_FILE = "creators/sumo_files/app.sumocfg"
+    STEPS_UNTIL_FIRST_OBSERVATION = 135 # 4 * 30 + 3 * 5
+    TOTAL_ITERATION_STEPS = 1000
+
+    SEMAPHORE_DECISION = 5
+    YELLOW_LIGHT = 3
+    DEFAULT_SEMAPHORE_DURATION = 30
+    SEMAPHORE_PHASES = 8
