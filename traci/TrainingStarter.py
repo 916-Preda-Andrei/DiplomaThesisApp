@@ -13,7 +13,7 @@ if __name__ == "__main__":
                   inputDimensions=Utils.INPUT_DIMENSIONS.value, memorySize=Utils.MEMORY_SIZE.value,
                   filename=Utils.MODEL_FILENAME.value, learningStepsToTake=Utils.LEARNING_STEPS.value)
 
-    agent.loadModel()
+    # agent.loadModel()
 
     scores = []
     epsilonHistory = []
@@ -42,7 +42,7 @@ if __name__ == "__main__":
 
         print('Episode #', episode, ' had negative reward %.2f' % negativeReward)
 
-        if episode % 10 == 9:
+        if episode % 10 == 9 or episode == 18:
             print("Saving model...")
             agent.saveModel()
             print("Model saved")

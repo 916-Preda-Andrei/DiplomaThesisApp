@@ -43,7 +43,7 @@ def getSumoBinary():
     return checkBinary('sumo-gui')
 
 class Utils(Enum):
-    EPISODES = 500
+    EPISODES = 20
     TOTAL_ITERATION_STEPS = 1000
     LEARNING_STEPS = 800
     GAMMA = 0.9
@@ -53,7 +53,7 @@ class Utils(Enum):
 
     INPUT_DIMENSIONS = 25
     NUMBER_OF_ACTIONS = 4
-    MEMORY_SIZE = 50000
+    MEMORY_SIZE = 10000
     BATCH_SIZE = 100
 
     UPDATE_TARGET = 10
