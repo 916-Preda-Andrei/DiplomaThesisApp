@@ -1,5 +1,6 @@
 import random
 import sys
+import re
 
 import traci
 
@@ -9,6 +10,7 @@ from training.Utils import Utils
 vehiclesCount = 0
 
 initialSemaphorePhases = [MoveType.NSR1, MoveType.WER2, MoveType.L1R1, MoveType.L2R2]
+LANE_OUT_REGEX = "^E_[1234]_0_[012345]$"
 
 class Runner:
     def __init__(self, connections):
@@ -35,7 +37,6 @@ class Runner:
             if randomNumber < connection.loadFactor:
                 traci.vehicle.addLegacy("V" + str(vehiclesCount), connection.routeId, lane=connection.fromLane, speed=10, typeID="CarA")
                 vehiclesCount = vehiclesCount + 1
-                # print("Added vehicle")
 
     def run(self):
         self.running = True
@@ -49,25 +50,6 @@ class Runner:
         traci.close()
         sys.stdout.flush()
         self.running = False
-
-    # def runOptimized(self):
-    #     self.running = True
-    #     step = 0
-    #     try:
-    #         while traci.simulation.getMinExpectedNumber() > 0:
-    #             if step == Utils.SEMAPHORE_DECISION.value:
-    #                 #TODO: Take decision based on state
-    #                 pass
-    #
-    #             traci.simulationStep()
-    #             self.addVehicles()
-    #             step += 1
-    #     except:
-    #         print("Connection was closed by SUMO")
-    #
-    #     traci.close()
-    #     sys.stdout.flush()
-    #     self.running = False
 
     def performStep(self, selectedPhase):
         initialWaitingTime = self.getTotalWaitingTimesOfVehicles()
@@ -110,7 +92,7 @@ class Runner:
         totalWaitingTime = 0
         vehicles = traci.vehicle.getIDList()
         for vehicle in vehicles:
-            if traci.vehicle.getSpeed(vehicle) > 1.0:
+            if re.search(LANE_OUT_REGEX, traci.vehicle.getLaneID(vehicle)):
                 totalWaitingTime += traci.vehicle.getAccumulatedWaitingTime(vehicle)
 
         return totalWaitingTime

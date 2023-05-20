@@ -1,12 +1,12 @@
 <additional>
     <tlLogic id ="0" programID="trafficLightsProgram" offset="0" type="static">
-      <phase duration="30" state="GGGGGGGrrrrrrrrrrrrrrGGGGGGGrrrrrrrrrrrrrr"/>
-      <phase duration="3" state="yyyyyyyrrrrrrrrrrrrrryyyyyyyrrrrrrrrrrrrrr"/>
-      <phase duration="30" state="rrrrrrrrrrrrGGGGGrrrrrrrrrrrrrrGGGGGGGGGrr"/>
-      <phase duration="3" state="rrrrrrrrrrrryyyyyrrrrrrrrrrrrrryyyyyyyyyrr"/>
-      <phase duration="30" state="GGGrrrrrrrrrrrrrrGGGGGGGGGrrrrrrrrrrrrrrGG"/>
-      <phase duration="3" state="yyyrrrrrrrrrrrrrryyyyyyyyyrrrrrrrrrrrrrryy"/>
-      <phase duration="30" state="rrrrrrrGGGGGGGrrrrrrrrrrrrrrGGGGGGGrrrrrrr"/>
-      <phase duration="3" state="rrrrrrryyyyyyyrrrrrrrrrrrrrryyyyyyyrrrrrrr"/>
+      <phase duration="30" state="GGGGGGGGGrrrrrrrrrrrrrrrrGGGGGGGrrrrrrrrrrrrrrrr"/>
+      <phase duration="3" state="yyyyyyyyyrrrrrrrrrrrrrrrryyyyyyyrrrrrrrrrrrrrrrr"/>
+      <phase duration="30" state="rrrrrrrrrrGGGGGGGGGGGGrrrrrrrrrrrrrrrrGGGGrrrrrr"/>
+      <phase duration="3" state="rrrrrrrrrryyyyyyyyyyyyrrrrrrrrrrrrrrrryyyyrrrrrr"/>
+      <phase duration="30" state="GGGGGGrrrrrrrrrrrrrrrrGGGGrrrrrrrrrrrrrrrrGGGGGG"/>
+      <phase duration="3" state="yyyyyyrrrrrrrrrrrrrrrryyyyrrrrrrrrrrrrrrrryyyyyy"/>
+      <phase duration="30" state="rrrrrrrrrGGGGGGGrrrrrrrrrrrrrrrrGGGGGGGGGrrrrrrr"/>
+      <phase duration="3" state="rrrrrrrrryyyyyyyrrrrrrrrrrrrrrrryyyyyyyyyrrrrrrr"/>
     </tlLogic>
 </additional>

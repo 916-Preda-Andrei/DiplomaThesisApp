@@ -1,5 +1,7 @@
 import numpy as np
 
+from training.Utils import Utils
+
 
 class ReplayBuffer(object):
     def __init__(self, maxSize, inputShape, numberOfActions, discrete=False):
@@ -12,14 +14,12 @@ class ReplayBuffer(object):
         self.dType = np.int8 if self.discrete else np.float32
         self.actionMemory = np.zeros((self.memorySize, numberOfActions), dtype=self.dType)
         self.rewardMemory = np.zeros(self.memorySize)
-        self.terminalMemory = np.zeros(self.memorySize, dtype = np.float32)
 
-    def storeTransition(self, state, action, reward, newState, done):
+    def storeTransition(self, state, action, reward, newState):
         index = self.memoryCounter % self.memorySize
         self.stateMemory[index] = state
         self.newStateMemory[index] = newState
         self.rewardMemory[index] = reward
-        self.terminalMemory[index] = 1 - int(done)
 
         if self.discrete:
             actions = np.zeros(self.actionMemory.shape[1])
@@ -37,7 +37,6 @@ class ReplayBuffer(object):
         newStates = self.newStateMemory[batch]
         rewards = self.rewardMemory[batch]
         actions = self.actionMemory[batch]
-        terminal = self.terminalMemory[batch]
 
-        return states, actions, rewards, newStates, terminal
+        return states, actions, rewards, newStates
 

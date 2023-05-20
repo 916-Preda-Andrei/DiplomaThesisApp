@@ -43,29 +43,25 @@ def getSumoBinary():
     return checkBinary('sumo-gui')
 
 class Utils(Enum):
-    EPISODES = 100
+    EPISODES = 500
+    TOTAL_ITERATION_STEPS = 1000
+    LEARNING_STEPS = 800
     GAMMA = 0.9
 
     # Learning rate
-    ALPHA = 0.0001
+    ALPHA = 0.001
 
     INPUT_DIMENSIONS = 25
     NUMBER_OF_ACTIONS = 4
-    MEMORY_SIZE = 100000
-    BATCH_SIZE = 64
+    MEMORY_SIZE = 50000
+    BATCH_SIZE = 100
 
-    # Epsilon settings
-    EPSILON = 1.0
-    EPSILON_DECREASE = 0.999
-    EPSILON_END = 0.01
-
+    UPDATE_TARGET = 10
     MODEL_FILENAME = "dqn_model.h5"
 
     PATH_TO_SUMOCFG_FILE = "creators/sumo_files/app.sumocfg"
-    STEPS_UNTIL_FIRST_OBSERVATION = 135 # 4 * 30 + 3 * 5
-    TOTAL_ITERATION_STEPS = 1000
+    STEPS_UNTIL_FIRST_OBSERVATION = 129 # 4 * 30 + 3 * 3
 
     SEMAPHORE_DECISION = 5
     YELLOW_LIGHT = 3
     DEFAULT_SEMAPHORE_DURATION = 30
-    SEMAPHORE_PHASES = 8
