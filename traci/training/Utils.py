@@ -43,21 +43,21 @@ def getSumoBinary():
     return checkBinary('sumo-gui')
 
 class Utils(Enum):
-    EPISODES = 20
+    EPISODES = 50
     TOTAL_ITERATION_STEPS = 1000
     LEARNING_STEPS = 800
     GAMMA = 0.9
 
     # Learning rate
-    ALPHA = 0.001
+    ALPHA = 0.01
 
     INPUT_DIMENSIONS = 25
     NUMBER_OF_ACTIONS = 4
     MEMORY_SIZE = 10000
     BATCH_SIZE = 100
 
-    UPDATE_TARGET = 10
     MODEL_FILENAME = "dqn_model.h5"
+    MEMORY_FILENAME = "replay_buffer.txt"
 
     PATH_TO_SUMOCFG_FILE = "creators/sumo_files/app.sumocfg"
     STEPS_UNTIL_FIRST_OBSERVATION = 129 # 4 * 30 + 3 * 3

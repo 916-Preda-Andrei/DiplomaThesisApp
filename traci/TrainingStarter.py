@@ -11,12 +11,11 @@ if __name__ == "__main__":
     agent = Agent(alpha=Utils.ALPHA.value, gamma=Utils.GAMMA.value, numberOfActions=Utils.NUMBER_OF_ACTIONS.value,
                   batchSize=Utils.BATCH_SIZE.value,
                   inputDimensions=Utils.INPUT_DIMENSIONS.value, memorySize=Utils.MEMORY_SIZE.value,
-                  filename=Utils.MODEL_FILENAME.value, learningStepsToTake=Utils.LEARNING_STEPS.value)
+                  filename=Utils.MODEL_FILENAME.value, memoryFilename=Utils.MEMORY_FILENAME.value, learningStepsToTake=Utils.LEARNING_STEPS.value)
 
     # agent.loadModel()
 
     scores = []
-    epsilonHistory = []
 
     for episode in range(Utils.EPISODES.value):
         print('Episode #', episode, ' started')
@@ -42,13 +41,12 @@ if __name__ == "__main__":
 
         print('Episode #', episode, ' had negative reward %.2f' % negativeReward)
 
-        if episode % 10 == 9 or episode == 18:
+        if episode % 5 == 4:
             print("Saving model...")
             agent.saveModel()
             print("Model saved")
 
     filename = 'traffic_lights_optimization.png'
-    x = [i + 1 for i in range(Utils.EPISODES.value)]
 
     plt.plot(scores)
     plt.ylabel('Scores')

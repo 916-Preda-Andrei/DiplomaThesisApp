@@ -1,4 +1,8 @@
+import json
+from json import JSONEncoder
+
 import numpy as np
+import ast
 
 from model.MoveType import MoveType
 from training.Utils import Utils
@@ -6,6 +10,12 @@ from training.ReplayBuffer import ReplayBuffer
 from keras.layers import Dense, Activation
 from keras.models import Sequential, load_model
 from keras.optimizers import Adam
+
+class NumpyArrayEncoder(JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, np.ndarray):
+            return obj.tolist()
+        return JSONEncoder.default(self, obj)
 
 def buildDQN(learningRate, numberOfActions, inputDimensions, firstFullyConnectedLayerDimensions, secondFullyConnectedLayerDimensions):
     model = Sequential([
@@ -20,7 +30,7 @@ def buildDQN(learningRate, numberOfActions, inputDimensions, firstFullyConnected
     return model
 
 class Agent(object):
-    def __init__(self, alpha, gamma, numberOfActions, batchSize, inputDimensions, memorySize, filename, learningStepsToTake):
+    def __init__(self, alpha, gamma, numberOfActions, batchSize, inputDimensions, memorySize, filename, memoryFilename, learningStepsToTake):
         self.actionSpace = [move.value for move in MoveType]
         self.numberOfActions = numberOfActions
         self.gamma = gamma
@@ -28,8 +38,9 @@ class Agent(object):
         self.epsilon = 1.0
         self.batchSize = batchSize
         self.modelFile = filename
+        self.memoryFile = memoryFilename
         self.memory = ReplayBuffer(memorySize, inputDimensions, numberOfActions, discrete=True)
-        self.qEval = buildDQN(alpha, numberOfActions, inputDimensions, 12, 12)
+        self.qEval = buildDQN(alpha, numberOfActions, inputDimensions, 100, 100)
         self.learningStepsToTake = learningStepsToTake
 
     def remember(self, state, action, reward, newState):
@@ -78,13 +89,27 @@ class Agent(object):
 
     def saveModel(self):
         self.qEval.save(self.modelFile)
+        with open(self.memoryFile, "w") as memory:
+            print(self.memory.memoryCounter, file=memory)
+            for i in range(self.memory.memorySize):
+                print(json.dumps(self.memory.stateMemory[i], cls=NumpyArrayEncoder), file=memory)
+                print(json.dumps(self.memory.actionMemory[i], cls=NumpyArrayEncoder), file=memory)
+                print(self.memory.rewardMemory[i], file=memory)
+                print(json.dumps(self.memory.newStateMemory[i], cls=NumpyArrayEncoder), file=memory)
 
     def loadModel(self):
         self.qEval = load_model(self.modelFile)
-
-    def updateParameters(self):
-        # self.epsilon = max(self.epsilon*self.epsilonDecrease, self.epsilonMin)
-
-        if self.learningStepsTaken % Utils.UPDATE_TARGET.value == 0:
-            self.qTarget = self.qEval.__copy__()
-        self.learningStepsTaken += 1
+        with open(self.memoryFile) as memory:
+            line_nr = 0
+            for line in memory:
+                if line_nr == 0:
+                    self.memory.memoryCounter = int(line)
+                elif line_nr % 4 == 1:
+                    self.memory.stateMemory[(line_nr-1)//4] = ast.literal_eval(line)
+                elif line_nr % 4 == 2:
+                    self.memory.actionMemory[(line_nr-2)//4] = ast.literal_eval(line)
+                elif line_nr % 4 == 3:
+                    self.memory.rewardMemory[(line_nr-3)//4] = int(line)
+                else:
+                    self.memory.newStateMemory[(line_nr-4)//4] = ast.literal_eval(line)
+                line_nr += 1

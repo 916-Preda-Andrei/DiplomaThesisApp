@@ -1,8 +1,30 @@
 <body>
     <div id="main_div">
         <div id="edit_streets_div">
+          <div id="add_north_div">
+            <h1>North Street</h1>
+            <form>
+                <mat-form-field appearance="fill">
+                  <mat-label>Approach lanes</mat-label>
+                  <mat-select [(ngModel)]="northLanesOut" name="nlanesOutValue">
+                    <mat-option *ngFor="let nlanesOutValue of lanesOutValues" [value]="nlanesOutValue.value">
+                      {{nlanesOutValue.viewValue}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Exit lanes</mat-label>
+                    <mat-select [(ngModel)]="northLanesIn" name="nlanesInValue">
+                      <mat-option *ngFor="let nlanesInValue of lanesInValues" [value]="nlanesInValue.value">
+                        {{nlanesInValue.viewValue}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+            </form>
+        </div>
+        <div id="middle_div">
             <div id="add_west_div">
-              <h4>West Street</h4>
+              <h1>West Street</h1>
                 <form>
                     <mat-form-field appearance="fill">
                       <mat-label>Approach lanes</mat-label>
@@ -22,9 +44,12 @@
                       </mat-form-field>
                 </form>
             </div>
+            <div id="go_next_div">
+              <button id="go_next_button" (click)="go_next()">Create Intersection</button>
+          </div>
             <div id="add_east_div">
+              <h1>East Street</h1>
                 <form>
-                    <h4>East Street</h4>
                     <mat-form-field appearance="fill">
                       <mat-label>Approach lanes</mat-label>
                       <mat-select [(ngModel)]="eastLanesOut" name="elanesOutValue">
@@ -43,9 +68,10 @@
                       </mat-form-field>
                 </form>
             </div>
+            </div>
             <div id="add_south_div">
+              <h1>South Street</h1>
                 <form>
-                    <h4>South Street</h4>
                     <mat-form-field appearance="fill">
                       <mat-label>Approach lanes</mat-label>
                       <mat-select [(ngModel)]="southLanesOut" name="slanesOutValue">
@@ -64,30 +90,6 @@
                       </mat-form-field>
                 </form>
             </div>
-            <div id="add_north_div">
-                <form>
-                    <h4>North Street</h4>
-                    <mat-form-field appearance="fill">
-                      <mat-label>Approach lanes</mat-label>
-                      <mat-select [(ngModel)]="northLanesOut" name="nlanesOutValue">
-                        <mat-option *ngFor="let nlanesOutValue of lanesOutValues" [value]="nlanesOutValue.value">
-                          {{nlanesOutValue.viewValue}}
-                        </mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                    <mat-form-field appearance="fill">
-                        <mat-label>Exit lanes</mat-label>
-                        <mat-select [(ngModel)]="northLanesIn" name="nlanesInValue">
-                          <mat-option *ngFor="let nlanesInValue of lanesInValues" [value]="nlanesInValue.value">
-                            {{nlanesInValue.viewValue}}
-                          </mat-option>
-                        </mat-select>
-                      </mat-form-field>
-                </form>
-            </div>
-        </div>
-        <div id="go_next_div">
-            <button id="go_next_button" (click)="go_next()">Create Intersection</button>
         </div>
     </div>
 </body>

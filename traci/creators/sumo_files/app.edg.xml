@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <edges xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/edges_file.xsd">
-   <edge id="E_1_0" from="1" to="0" type="T4"/>
-   <edge id="E_0_1" from="0" to="1" type="T1"/>
-   <edge id="E_2_0" from="2" to="0" type="T4"/>
-   <edge id="E_0_2" from="0" to="2" type="T5"/>
+   <edge id="E_1_0" from="1" to="0" type="T6"/>
+   <edge id="E_0_1" from="0" to="1" type="T2"/>
+   <edge id="E_2_0" from="2" to="0" type="T6"/>
+   <edge id="E_0_2" from="0" to="2" type="T1"/>
    <edge id="E_3_0" from="3" to="0" type="T3"/>
    <edge id="E_0_3" from="0" to="3" type="T3"/>
-   <edge id="E_4_0" from="4" to="0" type="T3"/>
-   <edge id="E_0_4" from="0" to="4" type="T4"/>
+   <edge id="E_4_0" from="4" to="0" type="T5"/>
+   <edge id="E_0_4" from="0" to="4" type="T3"/>
 </edges>

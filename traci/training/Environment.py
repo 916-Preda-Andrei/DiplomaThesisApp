@@ -100,10 +100,10 @@ class Environment:
         return self.getObservation(), reward, self.remainingSteps == 0, "no info"
 
     def getObservation(self):
-        carsForMoveDirection = {(1, 2): 0.0, (1, 3): 0.0, (1, 4): 0.0, (2, 1): 0.0, (2, 3): 0.0, (2, 4): 0.0,
-                                (3, 1): 0.0, (3, 2): 0.0, (3, 4): 0.0, (4, 1): 0.0, (4, 2): 0.0, (4, 3): 0.0}
-        lanesForMoveDirection = {(1, 2): 0.0, (1, 3): 0.0, (1, 4): 0.0, (2, 1): 0.0, (2, 3): 0.0, (2, 4): 0.0,
-                                 (3, 1): 0.0, (3, 2): 0.0, (3, 4): 0.0, (4, 1): 0.0, (4, 2): 0.0, (4, 3): 0.0}
+        carsForMoveDirection = {(1, 2): 0, (1, 3): 0, (1, 4): 0, (2, 1): 0, (2, 3): 0, (2, 4): 0,
+                                (3, 1): 0, (3, 2): 0, (3, 4): 0, (4, 1): 0, (4, 2): 0, (4, 3): 0}
+        lanesForMoveDirection = {(1, 2): 0, (1, 3): 0, (1, 4): 0, (2, 1): 0, (2, 3): 0, (2, 4): 0,
+                                 (3, 1): 0, (3, 2): 0, (3, 4): 0, (4, 1): 0, (4, 2): 0, (4, 3): 0}
         computedLanes = set()
 
         for connection in self.networkCreator.connections:
@@ -113,11 +113,11 @@ class Environment:
             direction = (connection.getFromEdge(), connection.getToEdge())
 
             carsOnLane = self.collectCountDataForConnection(connection)
-            lanesForMoveDirection[direction] += 1.0
+            lanesForMoveDirection[direction] += 1
             carsForMoveDirection[direction] += carsOnLane
 
         return State(carsForMoveDirection, lanesForMoveDirection,
-                     self.runner.currentSemaphorePhase / Utils.NUMBER_OF_ACTIONS.value).stateList
+                     self.runner.currentSemaphorePhase // 2).stateList
 
     def collectCountDataForConnection(self, connection):
         return traci.lane.getLastStepVehicleNumber(connection.getLaneId())
