@@ -1,16 +1,203 @@
 body{
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-content: center;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-content: flex-start;
 }
 #starters_div {
     display: flex;
     flex-direction: row;
-    width: 60%;
+    width: 80%;
     height: 10%;
-    justify-content: space-around;
+    justify-content: center;
     align-self: center;
     align-items: center;
-    background-color: aqua;
+}
+button{
+    background-color: rgba(15, 232, 250,0.7);
+    border: none;
+    border-radius: 15px;
+    color: #333;
+    width: 24%;
+    height: 32%;
+    font-size: large;
+    font-weight: 540;
+    align-self: center;
+}
+#center_streets{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-self: center;
+    width: 90%;
+}
+#west_div{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    border-right: 2px solid black;
+    width: 32%;
+    margin-left: 5%;
+}
+#east_div{
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: flex-start;
+    border-left: 2px solid black;
+    width: 32%;
+    margin-left: 17.3%;
+    margin-right: 5%;
+}
+#road_info_div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+#north_div{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    border-bottom: 2px solid black;
+    height: 30%;
+}
+#south_div{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    border-top: 2px solid black;
+    height: 30%;
+}
+#west_exit_div{
+    border-top: 2px solid black;
+    width: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+}
+#west_left_div{
+    border-top: 2px solid black;
+    width: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+    background-color: red;
+}
+#west_front_div{
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    width: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+    background-color: yellow;
+}
+#west_right_div{
+    border-bottom: 2px solid black;
+    width: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+    background-color: yellowgreen;
+
+}
+#east_exit_div{
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+#east_left_div{
+    border-top: 2px solid black;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    background-color: red;
+
+}
+#east_front_div{
+    border-top: 2px solid black;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    background-color: yellow;
+
+}
+#east_right_div{
+    border-top: 2px solid black;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    background-color: yellowgreen;
+
+}
+
+#north_exit_div{
+    border-right: 2px solid black;
+    height: 100%;
+    display: flex;
+    flex-direction: column-reverse;
+}
+#north_left_div{
+    border-right: 2px solid black;
+    height: 100%;
+    display: flex;
+    flex-direction: column-reverse;
+    background-color: green;
+
+}
+#north_front_div{
+    border-right: 2px solid black;
+    display: flex;
+    flex-direction: column-reverse;
+    background-color: blue;
+}
+#north_right_div{
+    border-right: 2px solid black;
+    border-left: 2px solid black;
+    height: 100%;
+    display: flex;
+    flex-direction: column-reverse;
+    background-color: violet;
+
+}
+
+#south_exit_div{
+    border-left: 2px solid black;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+#south_left_div{
+    border-left: 2px solid black;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: green;
+
+}
+#south_front_div{
+    border-left: 2px solid black;
+    display: flex;
+    flex-direction: column;
+    background-color: blue;
+}
+#south_right_div{
+    border-right: 2px solid black;
+    border-left: 2px solid black;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: violet;
+
+}
+
+#edit_load_factor_button{
+    width: 24%;
+    height: 70%;
+}
+
+p{
+    margin: 5%;
+    align-self: center;
+    font-size: large;
+    font-weight: 700;
 }

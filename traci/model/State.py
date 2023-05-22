@@ -1,8 +1,11 @@
+from training.Utils import Utils
+
 
 class State:
 
-    def __init__(self, carsForMoveDirection, lanesForMoveDirection, phase):
+    def __init__(self, carsForMoveType, phase):
         self.stateList = []
-        self.stateList.extend(list(carsForMoveDirection.values()))
-        self.stateList.extend(list(lanesForMoveDirection.values()))
-        self.stateList.append(phase)
+        for phase in Utils.initialSemaphorePhases.value:
+            self.stateList.append(carsForMoveType[phase])
+        for i in range(Utils.NUMBER_OF_ACTIONS.value):
+            self.stateList.append(1) if phase == i else self.stateList.append(0)

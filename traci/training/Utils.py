@@ -49,11 +49,11 @@ class Utils(Enum):
     GAMMA = 0.9
 
     # Learning rate
-    ALPHA = 0.01
+    ALPHA = 0.005
 
-    INPUT_DIMENSIONS = 25
+    INPUT_DIMENSIONS = 8
     NUMBER_OF_ACTIONS = 4
-    MEMORY_SIZE = 10000
+    MEMORY_SIZE = 50000
     BATCH_SIZE = 100
 
     MODEL_FILENAME = "dqn_model.h5"
@@ -65,3 +65,5 @@ class Utils(Enum):
     SEMAPHORE_DECISION = 5
     YELLOW_LIGHT = 3
     DEFAULT_SEMAPHORE_DURATION = 30
+
+    initialSemaphorePhases = [MoveType.NSR1, MoveType.WER2, MoveType.L1R1, MoveType.L2R2]

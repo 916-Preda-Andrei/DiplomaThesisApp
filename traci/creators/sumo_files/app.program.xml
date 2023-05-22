@@ -1,12 +1,12 @@
 <additional>
     <tlLogic id ="0" programID="trafficLightsProgram" offset="0" type="static">
-      <phase duration="30" state="GGGGGrrrrrrrrrGGGGrrrrrrrrr"/>
-      <phase duration="3" state="yyyyyrrrrrrrrryyyyrrrrrrrrr"/>
-      <phase duration="30" state="rrrrrrGGGGGrrrrrrrrrGGGGrrr"/>
-      <phase duration="3" state="rrrrrryyyyyrrrrrrrrryyyyrrr"/>
-      <phase duration="30" state="GGrrrrrrrrrGGGGrrrrrrrrrGGG"/>
-      <phase duration="3" state="yyrrrrrrrrryyyyrrrrrrrrryyy"/>
-      <phase duration="30" state="rrrrrGGGGrrrrrrrrrGGGGGrrrr"/>
-      <phase duration="3" state="rrrrryyyyrrrrrrrrryyyyyrrrr"/>
+      <phase duration="30" state="GGrrrrGGrrrr"/>
+      <phase duration="3" state="yyrrrryyrrrr"/>
+      <phase duration="30" state="rrrGGrrrrGGr"/>
+      <phase duration="3" state="rrryyrrrryyr"/>
+      <phase duration="30" state="GrrrrGGrrrrG"/>
+      <phase duration="3" state="yrrrryyrrrry"/>
+      <phase duration="30" state="rrGGrrrrGGrr"/>
+      <phase duration="3" state="rryyrrrryyrr"/>
     </tlLogic>
 </additional>

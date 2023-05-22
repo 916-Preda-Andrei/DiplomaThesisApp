@@ -1,6 +1,90 @@
 <body>
+    <div id = "road_info_div">
+        <div id="north_div">
+            <div id="north_exit_div">
+                <img src="assets/front_south.png" alt="Cannot load" style="size: 30"/>
+            </div>
+            <div id="north_left_div">
+                <img src="assets/turn_left_north.png" alt="Cannot load" style="size: 30"/>
+                <p>3</p>
+            </div>
+            <div id="north_front_div">
+                <img src="assets/front_north.png" alt="Cannot load" style="size: 30"/>
+                <p>6</p>
+
+            </div>
+            <div id="north_right_div">
+                <img src="assets/turn_right_north.png" alt="Cannot load" style="size: 30"/>
+                <p>4</p>
+
+            </div>
+        </div>
+        <div id="center_streets">
+            <button id="start_normal_button" (click)="start_normal()">Start Simulator Normal Mode</button>
+            <div id="west_div">
+                <div id="west_exit_div">
+                    <img src="assets/front_east.png" alt="Cannot load" style="size: 30"/>
+                </div>
+                <div id="west_left_div">
+                    <img src="assets/turn_left_west.png" alt="Cannot load" style="size: 30"/>
+                    <p>6</p>
+
+                </div>
+                <div id="west_front_div">
+                    <img src="assets/front_west.png" alt="Cannot load" style="size: 30"/>
+                    <p>4</p>
+
+                </div>
+                <div id="west_right_div">
+                    <img src="assets/turn_right_west.png" alt="Cannot load" style="size: 30"/>
+                    <p>1</p>
+
+                </div>
+            </div>
+            <div id="east_div">
+                <div id="east_exit_div">
+                    <img src="assets/front_west.png" alt="Cannot load" style="size: 30"/>
+                </div>
+                <div id="east_left_div">
+                    <img src="assets/turn_left_east.png" alt="Cannot load" style="size: 30"/>
+                    <p>5</p>
+
+                </div>
+                <div id="east_front_div">
+                    <img src="assets/front_east.png" alt="Cannot load" style="size: 30"/>
+                    <p>3</p>
+
+                </div>
+                <div id="east_right_div">
+                    <img src="assets/turn_right_east.png" alt="Cannot load" style="size: 30"/>
+                    <p>2</p>
+
+                </div>
+            </div>
+            <button id="start_optimized_button" (click)="start_optimized()">Start Simulator Optimized Mode</button>
+        </div>
+        <div id="south_div">
+            <div id="south_exit_div">
+                <img src="assets/front_north.png" alt="Cannot load" style="size: 30"/>
+            </div>
+            <div id="south_left_div">
+                <img src="assets/turn_left_south.png" alt="Cannot load" style="size: 30"/>
+                <p>3</p>
+
+            </div>
+            <div id="south_front_div">
+                <img src="assets/front_south.png" alt="Cannot load" style="size: 30"/>
+                <p>5</p>
+
+            </div>
+            <div id="south_right_div">
+                <img src="assets/turn_right_south.png" alt="Cannot load" style="size: 30"/>
+                <p>7</p>
+
+            </div>
+        </div>
+    </div>
     <div id = "starters_div">
-        <button mat-button color="primary" id="start_normal_button" (click)="start_normal()">Start Simulator Normal Mode</button>
-        <button mat-button color="primary" id="start_optimized_button" (click)="start_optimized()">Start Simulator Optimized Mode</button>
+        <button id="edit_load_factor_button">Edit load factor</button>
     </div>
 </body>

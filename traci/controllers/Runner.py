@@ -1,16 +1,15 @@
 import random
-import sys
 import re
+import sys
 
 import traci
 
-from model.MoveType import MoveType
 from training.Utils import Utils
 
 vehiclesCount = 0
 
-initialSemaphorePhases = [MoveType.NSR1, MoveType.WER2, MoveType.L1R1, MoveType.L2R2]
 LANE_OUT_REGEX = "^E_[1234]_0_[012345]$"
+
 
 class Runner:
     def __init__(self, connections):
@@ -35,7 +34,8 @@ class Runner:
         for connection in self.connections:
             randomNumber = random.random()
             if randomNumber < connection.loadFactor:
-                traci.vehicle.addLegacy("V" + str(vehiclesCount), connection.routeId, lane=connection.fromLane, speed=10, typeID="CarA")
+                traci.vehicle.addLegacy("V" + str(vehiclesCount), connection.routeId, lane=connection.fromLane,
+                                        speed=10, typeID="CarA")
                 vehiclesCount = vehiclesCount + 1
 
     def run(self):
@@ -54,11 +54,11 @@ class Runner:
     def performStep(self, selectedPhase):
         initialWaitingTime = self.getTotalWaitingTimesOfVehicles()
         self.setSemaphore(selectedPhase)
-        
+
         for step in range(Utils.SEMAPHORE_DECISION.value):
             traci.simulationStep()
             self.addVehicles()
-            
+
         afterActionWaitingTime = self.getTotalWaitingTimesOfVehicles()
         return initialWaitingTime - afterActionWaitingTime
 

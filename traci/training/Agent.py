@@ -11,15 +11,18 @@ from keras.layers import Dense, Activation
 from keras.models import Sequential, load_model
 from keras.optimizers import Adam
 
+
 class NumpyArrayEncoder(JSONEncoder):
     def default(self, obj):
         if isinstance(obj, np.ndarray):
             return obj.tolist()
         return JSONEncoder.default(self, obj)
 
-def buildDQN(learningRate, numberOfActions, inputDimensions, firstFullyConnectedLayerDimensions, secondFullyConnectedLayerDimensions):
+
+def buildDQN(learningRate, numberOfActions, inputDimensions, firstFullyConnectedLayerDimensions,
+             secondFullyConnectedLayerDimensions):
     model = Sequential([
-        Dense(firstFullyConnectedLayerDimensions, input_shape=(inputDimensions, )),
+        Dense(firstFullyConnectedLayerDimensions, input_shape=(inputDimensions,)),
         Activation('relu'),
         Dense(secondFullyConnectedLayerDimensions),
         Activation('relu'),
@@ -29,18 +32,19 @@ def buildDQN(learningRate, numberOfActions, inputDimensions, firstFullyConnected
     model.compile(optimizer=Adam(lr=learningRate), loss='mse')
     return model
 
+
 class Agent(object):
-    def __init__(self, alpha, gamma, numberOfActions, batchSize, inputDimensions, memorySize, filename, memoryFilename, learningStepsToTake):
+    def __init__(self, alpha, gamma, numberOfActions, batchSize, inputDimensions, memorySize, filename, memoryFilename,
+                 learningStepsToTake):
         self.actionSpace = [move.value for move in MoveType]
         self.numberOfActions = numberOfActions
         self.gamma = gamma
-
-        self.epsilon = 1.0
+        self.epsilon = 0.0
         self.batchSize = batchSize
         self.modelFile = filename
         self.memoryFile = memoryFilename
         self.memory = ReplayBuffer(memorySize, inputDimensions, numberOfActions, discrete=True)
-        self.qEval = buildDQN(alpha, numberOfActions, inputDimensions, 100, 100)
+        self.qEval = buildDQN(alpha, numberOfActions, inputDimensions, 256, 256)
         self.learningStepsToTake = learningStepsToTake
 
     def remember(self, state, action, reward, newState):
@@ -105,11 +109,11 @@ class Agent(object):
                 if line_nr == 0:
                     self.memory.memoryCounter = int(line)
                 elif line_nr % 4 == 1:
-                    self.memory.stateMemory[(line_nr-1)//4] = ast.literal_eval(line)
+                    self.memory.stateMemory[(line_nr - 1) // 4] = ast.literal_eval(line)
                 elif line_nr % 4 == 2:
-                    self.memory.actionMemory[(line_nr-2)//4] = ast.literal_eval(line)
+                    self.memory.actionMemory[(line_nr - 2) // 4] = ast.literal_eval(line)
                 elif line_nr % 4 == 3:
-                    self.memory.rewardMemory[(line_nr-3)//4] = int(line)
+                    self.memory.rewardMemory[(line_nr - 3) // 4] = float(line)
                 else:
-                    self.memory.newStateMemory[(line_nr-4)//4] = ast.literal_eval(line)
+                    self.memory.newStateMemory[(line_nr - 4) // 4] = ast.literal_eval(line)
                 line_nr += 1

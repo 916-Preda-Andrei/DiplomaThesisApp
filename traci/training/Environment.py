@@ -55,8 +55,8 @@ class Environment:
         while not ok:
             streets = {}
             for streetType in allStreetTypes:
-                lanesIn = random.randint(1, 6)
-                lanesOut = random.randint(3, 6)
+                lanesIn = 1
+                lanesOut = 3
                 streets[streetType] = Street(streetType, lanesIn, lanesOut)
 
             try:
@@ -79,7 +79,7 @@ class Environment:
 
         sumoBinary = getSumoBinary()
         traci.start([sumoBinary, "-c", Utils.PATH_TO_SUMOCFG_FILE.value,
-                     "--tripinfo-output", "app.tripinfo.xml", "--start", "--quit-on-end", "--waiting-time-memory", "1000"])
+                     "--tripinfo-output", "app.tripinfo.xml", "--start", "--quit-on-end", "--waiting-time-memory", "10000"])
 
         return self.warmUp()
 
@@ -100,10 +100,11 @@ class Environment:
         return self.getObservation(), reward, self.remainingSteps == 0, "no info"
 
     def getObservation(self):
-        carsForMoveDirection = {(1, 2): 0, (1, 3): 0, (1, 4): 0, (2, 1): 0, (2, 3): 0, (2, 4): 0,
-                                (3, 1): 0, (3, 2): 0, (3, 4): 0, (4, 1): 0, (4, 2): 0, (4, 3): 0}
-        lanesForMoveDirection = {(1, 2): 0, (1, 3): 0, (1, 4): 0, (2, 1): 0, (2, 3): 0, (2, 4): 0,
-                                 (3, 1): 0, (3, 2): 0, (3, 4): 0, (4, 1): 0, (4, 2): 0, (4, 3): 0}
+        # carsForMoveDirection = {(1, 2): 0, (1, 3): 0, (1, 4): 0, (2, 1): 0, (2, 3): 0, (2, 4): 0,
+        #                         (3, 1): 0, (3, 2): 0, (3, 4): 0, (4, 1): 0, (4, 2): 0, (4, 3): 0}
+        # lanesForMoveDirection = {(1, 2): 0, (1, 3): 0, (1, 4): 0, (2, 1): 0, (2, 3): 0, (2, 4): 0,
+        #                          (3, 1): 0, (3, 2): 0, (3, 4): 0, (4, 1): 0, (4, 2): 0, (4, 3): 0}
+        carsForMoveType = {MoveType.NSR1: 0, MoveType.WER2: 0, MoveType.L1R1: 0, MoveType.L2R2: 0}
         computedLanes = set()
 
         for connection in self.networkCreator.connections:
@@ -113,11 +114,11 @@ class Environment:
             direction = (connection.getFromEdge(), connection.getToEdge())
 
             carsOnLane = self.collectCountDataForConnection(connection)
-            lanesForMoveDirection[direction] += 1
-            carsForMoveDirection[direction] += carsOnLane
+            # lanesForMoveDirection[direction] += 1
+            for moveType in directionMapper[direction]:
+                carsForMoveType[moveType] += carsOnLane
 
-        return State(carsForMoveDirection, lanesForMoveDirection,
-                     self.runner.currentSemaphorePhase // 2).stateList
+        return State(carsForMoveType, self.runner.currentSemaphorePhase // 2).stateList
 
     def collectCountDataForConnection(self, connection):
         return traci.lane.getLastStepVehicleNumber(connection.getLaneId())
@@ -130,7 +131,7 @@ class Environment:
             if way not in counterForWays:
                 counterForWays[way] = 0
             counterForWays[way] += 1
-            loadsForWays[way] = (0.01 * random.randint(0, 20)) / counterForWays[way]
+            loadsForWays[way] = (0.01 * random.randint(0, 10)) / counterForWays[way]
 
         for connection in self.networkCreator.connections:
             way = (connection.getFromEdge(), connection.getToEdge())
