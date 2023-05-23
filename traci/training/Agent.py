@@ -103,17 +103,17 @@ class Agent(object):
 
     def loadModel(self):
         self.qEval = load_model(self.modelFile)
-        with open(self.memoryFile) as memory:
-            line_nr = 0
-            for line in memory:
-                if line_nr == 0:
-                    self.memory.memoryCounter = int(line)
-                elif line_nr % 4 == 1:
-                    self.memory.stateMemory[(line_nr - 1) // 4] = ast.literal_eval(line)
-                elif line_nr % 4 == 2:
-                    self.memory.actionMemory[(line_nr - 2) // 4] = ast.literal_eval(line)
-                elif line_nr % 4 == 3:
-                    self.memory.rewardMemory[(line_nr - 3) // 4] = float(line)
-                else:
-                    self.memory.newStateMemory[(line_nr - 4) // 4] = ast.literal_eval(line)
-                line_nr += 1
+        # with open(self.memoryFile) as memory:
+        #     line_nr = 0
+        #     for line in memory:
+        #         if line_nr == 0:
+        #             self.memory.memoryCounter = int(line)
+        #         elif line_nr % 4 == 1:
+        #             self.memory.stateMemory[(line_nr - 1) // 4] = ast.literal_eval(line)
+        #         elif line_nr % 4 == 2:
+        #             self.memory.actionMemory[(line_nr - 2) // 4] = ast.literal_eval(line)
+        #         elif line_nr % 4 == 3:
+        #             self.memory.rewardMemory[(line_nr - 3) // 4] = float(line)
+        #         else:
+        #             self.memory.newStateMemory[(line_nr - 4) // 4] = ast.literal_eval(line)
+        #         line_nr += 1
