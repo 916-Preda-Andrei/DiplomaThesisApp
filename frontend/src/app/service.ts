@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {map} from "rxjs/operators";
 import { Street } from './start/street';
+import { LoadFactor } from './runner/loadFactor';
 
 
 @Injectable({
@@ -30,5 +31,9 @@ export class Service {
     editStreets(streets: Street[]): Observable<Response> {
         const url = `${this.backendUrl}edit/streets`;
         return this.http.post<Response>(url, streets);
+    }
+    editLoads(loads: LoadFactor[]): Observable<Response> {
+        const url = `${this.backendUrl}edit/loads`;
+        return this.http.post<Response>(url, loads);
     }
 }

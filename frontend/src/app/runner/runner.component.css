@@ -201,3 +201,7 @@ p{
     font-size: large;
     font-weight: 700;
 }
+input{
+    width: 1%;
+    height: 1%;
+}
