@@ -13,11 +13,12 @@ if __name__ == "__main__":
                   inputDimensions=Utils.INPUT_DIMENSIONS.value, memorySize=Utils.MEMORY_SIZE.value,
                   filename=Utils.MODEL_FILENAME.value, memoryFilename=Utils.MEMORY_FILENAME.value, learningStepsToTake=Utils.LEARNING_STEPS.value)
 
-    # agent.loadModel()
+    if Utils.LOAD_MODEL.value:
+        agent.loadModel()
 
     scores = []
 
-    for episode in range(Utils.EPISODES.value):
+    for episode in range(Utils.STARTING_EPISODE.value, Utils.EPISODES.value):
         print('Episode #', episode, ' started')
         agent.epsilon = 1.0 - (episode / Utils.EPISODES.value)
         done = False

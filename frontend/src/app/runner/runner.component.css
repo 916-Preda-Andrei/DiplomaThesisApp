@@ -148,7 +148,7 @@ button{
     border-right: 2px solid black;
     display: flex;
     flex-direction: column-reverse;
-    background-color: blue;
+    background-color: rgb(62, 62, 255);
 }
 #north_right_div{
     border-right: 2px solid black;
@@ -178,7 +178,7 @@ button{
     border-left: 2px solid black;
     display: flex;
     flex-direction: column;
-    background-color: blue;
+    background-color: rgb(62, 62, 255);
 }
 #south_right_div{
     border-right: 2px solid black;
@@ -201,7 +201,78 @@ p{
     font-size: large;
     font-weight: 700;
 }
-input{
-    width: 1%;
-    height: 1%;
+select{
+    border: 0;
+    align-self: center;
+    background-color: transparent;
+    font-weight: 700;
+    font-size: large;
+}
+#north_left_load{
+    width: 90%;
+    height: 16%;
+    background-color: green;
+}
+#north_front_load{
+    width: 90%;
+    height: 16%;
+    align-self: center;
+    background-color: rgb(62, 62, 255);
+}
+#north_right_load{
+    width: 90%;
+    height: 16%;
+    align-self: center;
+    background-color: violet;
+}
+#south_left_load{
+    width: 90%;
+    height: 16%;
+    background-color: green;
+}
+#south_front_load{
+    width: 90%;
+    height: 16%;
+    align-self: center;
+    background-color: rgb(62, 62, 255);
+}
+#south_right_load{
+    width: 90%;
+    height: 16%;
+    align-self: center;
+    background-color: violet;
+}
+#west_left_load{
+    width: 18%;
+    height: 60%;
+    background-color: red;
+}
+#west_front_load{
+    width: 18%;
+    height: 60%;
+    align-self: center;
+    background-color: yellow;
+}
+#west_right_load{
+    width: 18%;
+    height: 60%;
+    align-self: center;
+    background-color: yellowgreen;
+}
+#east_left_load{
+    width: 18%;
+    height: 60%;
+    background-color: red;
+}
+#east_front_load{
+    width: 18%;
+    height: 60%;
+    align-self: center;
+    background-color: yellow;
+}
+#east_right_load{
+    width: 18%;
+    height: 60%;
+    align-self: center;
+    background-color: yellowgreen;
 }

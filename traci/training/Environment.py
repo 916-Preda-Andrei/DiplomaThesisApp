@@ -88,7 +88,7 @@ class Environment:
         return self.getObservation()
 
     def nonTrainingStep(self, action):
-        reward = self.runner.performStep(action * 2) / self.totalLoadFactor
+        reward = self.runner.performStep(action * 2)
         return self.getObservation(), reward
 
     def step(self, action):

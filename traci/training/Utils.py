@@ -29,7 +29,7 @@ def checkSumoHome():
 def get_options():
     optParser = optparse.OptionParser()
     optParser.add_option("--nogui", action="store_true",
-                         default=False, help="run the commandline version of sumo")
+                         default=True, help="run the commandline version of sumo")
 
     options, args = optParser.parse_args()
     return options
@@ -43,6 +43,8 @@ def getSumoBinary():
     return checkBinary('sumo-gui')
 
 class Utils(Enum):
+    LOAD_MODEL = False
+    STARTING_EPISODE = 0
     EPISODES = 200
     TOTAL_ITERATION_STEPS = 1000
     LEARNING_STEPS = 800

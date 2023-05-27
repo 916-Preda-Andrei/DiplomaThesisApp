@@ -94,3 +94,14 @@ class App:
         self.createNetwork()
 
         return "Successfully edited the streets", 200
+
+    def editLoads(self, loads):
+        for connection in self.networkCreator.connections:
+            for load in loads:
+                if load.fromEdge.value == connection.getFromEdge() and load.toEdge.value == connection.getToEdge():
+                    connection.loadFactor = load.loadFactor * 0.01
+                    break
+
+        if self.runner is not None:
+            self.runner.connections = self.networkCreator.connections
+        return "Successfully edited the connections", 200

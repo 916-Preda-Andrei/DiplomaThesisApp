@@ -27,7 +27,7 @@ class Runner:
                 self.addVehicles()
 
             self.currentSemaphorePhase = selectedPhase
-            traci.trafficlight.setPhase("0", str(self.currentSemaphorePhase))
+        traci.trafficlight.setPhase("0", str(self.currentSemaphorePhase))
 
     def addVehicles(self):
         global vehiclesCount

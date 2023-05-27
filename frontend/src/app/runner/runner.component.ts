@@ -3,6 +3,7 @@ import { Service } from '../service';
 import { MatDialog } from '@angular/material/dialog';
 import { AppErrorDialogComponent } from '../app-error-dialog/app-error-dialog.component';
 import { LoadFactor } from './loadFactor';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-runner',
@@ -11,21 +12,9 @@ import { LoadFactor } from './loadFactor';
 })
 export class RunnerComponent {
   simulatorStarted: boolean = false;
-  north_left_load: number = 5;
-  north_front_load: number = 5;
-  north_right_load: number = 5;
-  west_left_load: number = 5;
-  west_front_load: number = 5;
-  west_right_load: number = 5;
-  east_left_load: number = 5;
-  east_front_load: number = 5;
-  east_right_load: number = 5;
-  south_left_load: number = 5;
-  south_front_load: number = 5;
-  south_right_load: number = 5;
   loadFactors: LoadFactor[] = [] 
 
-  constructor(private service: Service, private dialog: MatDialog) { 
+  constructor(private service: Service, private dialog: MatDialog, private toastr: ToastrService) { 
   }
 
   ngOnInit(): void {
@@ -56,21 +45,41 @@ export class RunnerComponent {
   }
 
   edit_load_factor(): void {
+    const north_left_load = document.getElementById('north_left_load') as HTMLSelectElement;
+    const north_front_load = document.getElementById('north_front_load') as HTMLSelectElement;
+    const north_right_load = document.getElementById('north_right_load') as HTMLSelectElement;
+    const west_left_load = document.getElementById('west_left_load') as HTMLSelectElement;
+    const west_front_load = document.getElementById('west_front_load') as HTMLSelectElement;
+    const west_right_load = document.getElementById('west_right_load') as HTMLSelectElement;
+    const east_left_load = document.getElementById('east_left_load') as HTMLSelectElement;
+    const east_front_load = document.getElementById('east_front_load') as HTMLSelectElement;
+    const east_right_load = document.getElementById('east_right_load') as HTMLSelectElement;
+    const south_left_load = document.getElementById('south_left_load') as HTMLSelectElement;
+    const south_front_load = document.getElementById('south_front_load') as HTMLSelectElement;
+    const south_right_load = document.getElementById('south_right_load') as HTMLSelectElement;
     this.loadFactors = [
-      {from: 'north', to: 'east', loadFactor: this.north_left_load},
-      {from: 'north', to: 'south', loadFactor: this.north_front_load},
-      {from: 'north', to: 'west', loadFactor: this.north_right_load},
-      {from: 'west', to: 'north', loadFactor: this.west_left_load},
-      {from: 'west', to: 'east', loadFactor: this.west_front_load},
-      {from: 'west', to: 'south', loadFactor: this.west_right_load},
-      {from: 'east', to: 'south', loadFactor: this.east_left_load},
-      {from: 'east', to: 'west', loadFactor: this.east_front_load},
-      {from: 'east', to: 'north', loadFactor: this.east_right_load},
-      {from: 'south', to: 'west', loadFactor: this.south_left_load},
-      {from: 'south', to: 'north', loadFactor: this.south_front_load},
-      {from: 'south', to: 'east', loadFactor: this.south_right_load}
+      {from: 'north', to: 'east', loadFactor: north_left_load.value},
+      {from: 'north', to: 'south', loadFactor: north_front_load.value},
+      {from: 'north', to: 'west', loadFactor: north_right_load.value},
+      {from: 'west', to: 'north', loadFactor: west_left_load.value},
+      {from: 'west', to: 'east', loadFactor: west_front_load.value},
+      {from: 'west', to: 'south', loadFactor: west_right_load.value},
+      {from: 'east', to: 'south', loadFactor: east_left_load.value},
+      {from: 'east', to: 'west', loadFactor: east_front_load.value},
+      {from: 'east', to: 'north', loadFactor: east_right_load.value},
+      {from: 'south', to: 'west', loadFactor: south_left_load.value},
+      {from: 'south', to: 'north', loadFactor: south_front_load.value},
+      {from: 'south', to: 'east', loadFactor: south_right_load.value}
+    ];
 
-    ]
+      this.service.editLoads(this.loadFactors).subscribe( response => {
+        if(response.status === 200){
+          this.toastr.success('Loads succesfully edited!', 'Notification');
+        }
+        else{
+          this.openErrorDialog("There was a problem in editing the loads!");
+        }
+    });
   }
 
   openErrorDialog(message: string) {

@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify, Response
 
 from controllers.App import App
+from model.Load import Load
 from model.Street import Street
 from model.StreetType import StreetType
 
@@ -57,6 +58,20 @@ def editStreets():
     response, status = service.editStreets(streets)
     return {"message": response, "status": status}
 
+@app.route('/edit/loads', methods = ['POST'])
+def editLoads():
+    if request.method != "POST":
+        return "Bad Request", 400
+    jsonLoads = request.json
+    loads = []
+    for loadObject in jsonLoads:
+        fromEdge = loadObject['from']
+        toEdge = loadObject['to']
+        loadFactor = loadObject['loadFactor']
+        loads.append(Load(computeStreetType(fromEdge), computeStreetType(toEdge), loadFactor))
+
+    response, status = service.editLoads(loads)
+    return {"message": response, "status": status}
 
 if __name__ == '__main__':
     app.run(debug=False)

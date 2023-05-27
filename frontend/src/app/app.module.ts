@@ -11,6 +11,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import { FormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { ToastrModule } from 'ngx-toastr';
 
 import { AppComponent } from './app.component';
 import { StartComponent } from './start/start.component';
@@ -36,7 +37,8 @@ import { RunnerComponent } from './runner/runner.component';
     MatPaginatorModule,
     MatDialogModule,
     FormsModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    ToastrModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]
