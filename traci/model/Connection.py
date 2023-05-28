@@ -1,5 +1,6 @@
 DEFAULT_LOAD_FACTOR = 0.05
 
+
 class Connection:
     def __init__(self, fromEdge, toEdge, fromLane, toLane):
         self.fromEdge = fromEdge

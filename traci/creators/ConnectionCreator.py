@@ -55,9 +55,11 @@ class ConnectionCreator:
                 raise TrafficAppException("Not enough lanes!")
 
             if street.lanes == 1:
-                connections.extend(self.createConnectionForStreetWithOneLane(street, leftStreet, frontStreet, rightStreet))
+                connections.extend(
+                    self.createConnectionForStreetWithOneLane(street, leftStreet, frontStreet, rightStreet))
             elif street.lanes == 2:
-                connections.extend(self.createConnectionForStreetWithTwoLanes(street, leftStreet, frontStreet, rightStreet))
+                connections.extend(
+                    self.createConnectionForStreetWithTwoLanes(street, leftStreet, frontStreet, rightStreet))
             else:
                 connections.extend(self.createConnectionForStreet(street, leftStreet, frontStreet, rightStreet))
 
@@ -85,11 +87,13 @@ class ConnectionCreator:
         if availableLanes - takeFrontLanes - takeRightLanes > 0:
             takeLeftLanes = min(1, leftLanes)
 
-        takeLeftLanes = min(max(takeLeftLanes, min(int((leftLanes / totalOptions) * availableLanes), availableLanes - takeRightLanes - takeFrontLanes)), leftLanes)
+        takeLeftLanes = min(max(takeLeftLanes, min(int((leftLanes / totalOptions) * availableLanes),
+                                                   availableLanes - takeRightLanes - takeFrontLanes)), leftLanes)
         totalOptions -= leftLanes
         availableLanes -= takeLeftLanes
 
-        takeRightLanes = min(max(1, min(int((rightLanes / totalOptions) * availableLanes), availableLanes - takeFrontLanes)), rightLanes)
+        takeRightLanes = min(
+            max(1, min(int((rightLanes / totalOptions) * availableLanes), availableLanes - takeFrontLanes)), rightLanes)
         availableLanes -= takeRightLanes
         takeFrontLanes = availableLanes
 
@@ -144,6 +148,6 @@ class ConnectionCreator:
                 connections.append(Connection(street.computeId(), frontStreet.computeId(), 0, i))
 
         else:
-            connections = self.createConnectionForStreet(street, leftStreet, frontStreet,rightStreet)
+            connections = self.createConnectionForStreet(street, leftStreet, frontStreet, rightStreet)
 
         return connections

@@ -4,15 +4,6 @@ body{
     justify-content: flex-start;
     align-content: flex-start;
 }
-#starters_div {
-    display: flex;
-    flex-direction: row;
-    width: 80%;
-    height: 10%;
-    justify-content: center;
-    align-self: center;
-    align-items: center;
-}
 button{
     background-color: rgba(15, 232, 250,0.7);
     border: none;
@@ -21,7 +12,7 @@ button{
     width: 24%;
     height: 32%;
     font-size: large;
-    font-weight: 540;
+    font-weight: 550;
     align-self: center;
 }
 #center_streets{
@@ -191,15 +182,9 @@ button{
 }
 
 #edit_load_factor_button{
-    width: 24%;
+    width: 20%;
     height: 70%;
-}
-
-p{
-    margin: 5%;
-    align-self: center;
-    font-size: large;
-    font-weight: 700;
+    margin-right: 5.5%;
 }
 select{
     border: 0;
@@ -275,4 +260,74 @@ select{
     height: 60%;
     align-self: center;
     background-color: yellowgreen;
+}
+
+#starters_div {
+    display: flex;
+    flex-direction: row;
+    width: 98%;
+    height: 10%;
+    justify-content: flex-end;
+    align-self: center;
+    /* align-items: center; */
+}
+p{
+    margin-top: 4%;
+    margin-right: 2%;
+    margin-left: 2%;
+    align-self: center;
+    font-size: medium;
+    font-weight: 700;
+}
+#legend_div{
+    display: flex;
+    flex-direction: row;
+}
+#ns{
+    width: 28px;
+    height: 14px;
+    margin-top: 5%;
+    border: 2px solid black;
+    margin-right: 1%;
+    background-color: rgb(62, 62, 255);
+}
+#r1{
+    width: 28px;
+    height: 14px;
+    margin-top: 5%;
+    border: 2px solid black;    
+    margin-right: 1%;
+    background-color: violet;
+}
+#we{
+    width: 28px;
+    height: 14px;
+    margin-top: 5%;
+    border: 2px solid black;    
+    margin-right: 1%;
+    background-color: yellow;
+}
+#r2{
+    width: 28px;
+    height: 14px;
+    margin-top: 5%;
+    border: 2px solid black;    
+    margin-right: 1%;
+    background-color: yellowgreen;
+}
+#l1{
+    width: 28px;
+    height: 14px;
+    margin-top: 5%;
+    border: 2px solid black;    
+    margin-right: 1%;
+    background-color: red;
+}
+#l2{
+    width: 28px;
+    height: 14px;
+    margin-top: 5%;
+    border: 2px solid black;    
+    margin-right: 1%;
+    background-color: green;
 }

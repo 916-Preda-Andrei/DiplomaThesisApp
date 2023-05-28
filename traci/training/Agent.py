@@ -1,15 +1,16 @@
+import ast
 import json
 from json import JSONEncoder
 
 import numpy as np
-import ast
-
-from model.MoveType import MoveType
-from training.Utils import Utils
-from training.ReplayBuffer import ReplayBuffer
 from keras.layers import Dense, Activation
 from keras.models import Sequential, load_model
 from keras.optimizers import Adam
+from keras.utils import plot_model
+
+from model.MoveType import MoveType
+from training.ReplayBuffer import ReplayBuffer
+from training.Utils import Utils
 
 
 class NumpyArrayEncoder(JSONEncoder):
@@ -60,7 +61,7 @@ class Agent(object):
         return action
 
     def chooseBestAction(self, state):
-        actions = self.qEval.predict([state])
+        actions = self.qEval.predict([state], verbose=None)
         return np.argmax(actions)
 
     def learn(self):
@@ -69,9 +70,6 @@ class Agent(object):
 
         for _ in range(self.learningStepsToTake):
             states, actions, rewards, newStates = self.memory.sampleBuffer(self.batchSize)
-
-            # actionValues = np.array(self.actionSpace, dtype=np.int8)
-            # actionIndices = np.dot(actions, actionValues)
 
             qEval = self.qEval.predict([states], verbose=None)
             qNext = self.qEval.predict([newStates], verbose=None)
@@ -85,9 +83,6 @@ class Agent(object):
                 currentQ[action] = reward + self.gamma * np.amax(qNext[i])
                 x[i] = state
                 y[i] = currentQ
-                # batchIndex = np.arange(self.batchSize, dtype=np.int32)
-                #
-                # self.qTarget[batchIndex, actionIndices] = rewards + self.gamma * np.max(qNext, axis=1)
 
             self.qEval.fit(x, y, epochs=1, verbose=0)
 
@@ -100,20 +95,22 @@ class Agent(object):
                 print(json.dumps(self.memory.actionMemory[i], cls=NumpyArrayEncoder), file=memory)
                 print(self.memory.rewardMemory[i], file=memory)
                 print(json.dumps(self.memory.newStateMemory[i], cls=NumpyArrayEncoder), file=memory)
+        plot_model(self.qEval, to_file=Utils.MODEL_PNG.value, show_shapes=True, show_layer_names=True)
 
     def loadModel(self):
         self.qEval = load_model(self.modelFile)
-        # with open(self.memoryFile) as memory:
-        #     line_nr = 0
-        #     for line in memory:
-        #         if line_nr == 0:
-        #             self.memory.memoryCounter = int(line)
-        #         elif line_nr % 4 == 1:
-        #             self.memory.stateMemory[(line_nr - 1) // 4] = ast.literal_eval(line)
-        #         elif line_nr % 4 == 2:
-        #             self.memory.actionMemory[(line_nr - 2) // 4] = ast.literal_eval(line)
-        #         elif line_nr % 4 == 3:
-        #             self.memory.rewardMemory[(line_nr - 3) // 4] = float(line)
-        #         else:
-        #             self.memory.newStateMemory[(line_nr - 4) // 4] = ast.literal_eval(line)
-        #         line_nr += 1
+        if Utils.LOAD_REPLAY_BUFFER.value:
+            with open(self.memoryFile) as memory:
+                line_nr = 0
+                for line in memory:
+                    if line_nr == 0:
+                        self.memory.memoryCounter = int(line)
+                    elif line_nr % 4 == 1:
+                        self.memory.stateMemory[(line_nr - 1) // 4] = ast.literal_eval(line)
+                    elif line_nr % 4 == 2:
+                        self.memory.actionMemory[(line_nr - 2) // 4] = ast.literal_eval(line)
+                    elif line_nr % 4 == 3:
+                        self.memory.rewardMemory[(line_nr - 3) // 4] = float(line)
+                    else:
+                        self.memory.newStateMemory[(line_nr - 4) // 4] = ast.literal_eval(line)
+                    line_nr += 1

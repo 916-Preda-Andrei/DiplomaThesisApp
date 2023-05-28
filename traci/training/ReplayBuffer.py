@@ -1,7 +1,5 @@
 import numpy as np
 
-from training.Utils import Utils
-
 
 class ReplayBuffer(object):
     def __init__(self, maxSize, inputShape, numberOfActions, discrete=False):
@@ -39,4 +37,3 @@ class ReplayBuffer(object):
         actions = self.actionMemory[batch]
 
         return states, actions, rewards, newStates
-

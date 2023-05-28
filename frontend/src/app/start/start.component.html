@@ -1,27 +1,42 @@
 <body>
     <div id="main_div">
         <div id="edit_streets_div">
-          <div id="add_north_div">
-            <h2>North Street</h2>
-            <form>
-                <mat-form-field appearance="fill">
-                  <mat-label>Approach lanes</mat-label>
-                  <mat-select [(ngModel)]="northLanesOut" name="nlanesOutValue">
-                    <mat-option *ngFor="let nlanesOutValue of lanesOutValues" [value]="nlanesOutValue.value">
-                      {{nlanesOutValue.viewValue}}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-                <mat-form-field appearance="fill">
-                    <mat-label>Exit lanes</mat-label>
-                    <mat-select [(ngModel)]="northLanesIn" name="nlanesInValue">
-                      <mat-option *ngFor="let nlanesInValue of lanesInValues" [value]="nlanesInValue.value">
-                        {{nlanesInValue.viewValue}}
+          <div id="upper_div">
+            <div id="add_north_div">
+              <h2>North Street</h2>
+              <form>
+                  <mat-form-field appearance="fill">
+                    <mat-label>Approach lanes</mat-label>
+                    <mat-select [(ngModel)]="northLanesOut" name="nlanesOutValue">
+                      <mat-option *ngFor="let nlanesOutValue of lanesOutValues" [value]="nlanesOutValue.value">
+                        {{nlanesOutValue.viewValue}}
                       </mat-option>
                     </mat-select>
                   </mat-form-field>
+                  <mat-form-field appearance="fill">
+                      <mat-label>Exit lanes</mat-label>
+                      <mat-select [(ngModel)]="northLanesIn" name="nlanesInValue">
+                        <mat-option *ngFor="let nlanesInValue of lanesInValues" [value]="nlanesInValue.value">
+                          {{nlanesInValue.viewValue}}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+              </form>
+            </div>
+            <div id="select_trained">
+              <h3>Select a trained intersection from the list:</h3>
+              <form>
+                <mat-form-field appearance="fill">
+                  <mat-label>Approach lanes</mat-label>
+                  <mat-select [(ngModel)]="trainedList" name="trainedListValue" (selectionChange)="refreshApproachLanes()">
+                    <mat-option *ngFor="let trainedListValue of trainedValues" [value]="trainedListValue.value">
+                      {{trainedListValue.viewValue}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
             </form>
-        </div>
+            </div>
+          </div>  
         <div id="middle_div">
             <div id="add_west_div">
               <h2>West Street</h2>

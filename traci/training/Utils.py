@@ -18,6 +18,7 @@ directionMapper = {(1, 2): [MoveType.WER2], (1, 3): [MoveType.WER2, MoveType.L2R
 allMoveTypes = [MoveType.NSR1, MoveType.WER2, MoveType.L1R1, MoveType.L2R2]
 allStreetTypes = [StreetType.WEST, StreetType.EAST, StreetType.SOUTH, StreetType.NORTH]
 
+
 def checkSumoHome():
     if 'SUMO_HOME' in os.environ:
         tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
@@ -42,16 +43,19 @@ def getSumoBinary():
         return checkBinary('sumo')
     return checkBinary('sumo-gui')
 
+
 class Utils(Enum):
     LOAD_MODEL = False
+    LOAD_REPLAY_BUFFER = True
+    SAVE_TO_DRIVE = True
     STARTING_EPISODE = 0
     EPISODES = 200
     TOTAL_ITERATION_STEPS = 1000
     LEARNING_STEPS = 800
-    GAMMA = 0.9
+    GAMMA = 0.75
 
     # Learning rate
-    ALPHA = 0.005
+    ALPHA = 0.0005
 
     INPUT_DIMENSIONS = 8
     NUMBER_OF_ACTIONS = 4
@@ -60,9 +64,10 @@ class Utils(Enum):
 
     MODEL_FILENAME = "dqn_model.h5"
     MEMORY_FILENAME = "replay_buffer.txt"
+    MODEL_PNG = "training.png"
 
     PATH_TO_SUMOCFG_FILE = "creators/sumo_files/app.sumocfg"
-    STEPS_UNTIL_FIRST_OBSERVATION = 129 # 4 * 30 + 3 * 3
+    STEPS_UNTIL_FIRST_OBSERVATION = 129  # 4 * 30 + 3 * 3
 
     SEMAPHORE_DECISION = 5
     YELLOW_LIGHT = 3

@@ -1,7 +1,5 @@
 import os
 
-import matplotlib.pyplot as plt
-
 from training.Agent import Agent
 from training.Environment import Environment
 from training.Utils import Utils
@@ -11,7 +9,8 @@ if __name__ == "__main__":
     agent = Agent(alpha=Utils.ALPHA.value, gamma=Utils.GAMMA.value, numberOfActions=Utils.NUMBER_OF_ACTIONS.value,
                   batchSize=Utils.BATCH_SIZE.value,
                   inputDimensions=Utils.INPUT_DIMENSIONS.value, memorySize=Utils.MEMORY_SIZE.value,
-                  filename=Utils.MODEL_FILENAME.value, memoryFilename=Utils.MEMORY_FILENAME.value, learningStepsToTake=Utils.LEARNING_STEPS.value)
+                  filename=Utils.MODEL_FILENAME.value, memoryFilename=Utils.MEMORY_FILENAME.value,
+                  learningStepsToTake=Utils.LEARNING_STEPS.value)
 
     if Utils.LOAD_MODEL.value:
         agent.loadModel()
@@ -27,7 +26,7 @@ if __name__ == "__main__":
         observation = env.reset()
         while not done:
             action = agent.chooseAction(observation)
-            newObservation, reward, done, info = env.step(action)
+            newObservation, reward, done = env.step(action)
             score += reward
             if reward < 0.0:
                 negativeReward += reward
@@ -41,22 +40,25 @@ if __name__ == "__main__":
         scores.append(score)
 
         print('Episode #', episode, ' had negative reward %.2f' % negativeReward)
+        print('Episode #', episode, ' had total reward %.2f' % score)
 
         if episode % 5 == 4:
             print("Saving model...")
             agent.saveModel()
+            if Utils.SAVE_TO_DRIVE.value:
+                os.system("mv dqn_model.h5 gdrive/MyDrive/")
+                os.system("mv replay_buffer.txt gdrive/MyDrive/")
             print("Model saved")
 
-    filename = 'traffic_lights_optimization.png'
-
-    plt.plot(scores)
-    plt.ylabel('Scores')
-    plt.xlabel('Episodes')
-    plt.margins(0)
-    minValue = min(scores)
-    maxValue = max(scores)
-    plt.ylim(minValue - 0.05 * abs(minValue), maxValue + 0.05 * abs(maxValue))
-    fig = plt.gcf()
-    fig.set_size_inches(20, 11.25)
-    fig.savefig(os.path.join('plot', filename), dpi=96)
-    plt.close("all")
+    # filename = 'traffic_lights_optimization.png'
+    # plt.plot(scores)
+    # plt.ylabel('Scores')
+    # plt.xlabel('Episodes')
+    # plt.margins(0)
+    # minValue = min(scores)
+    # maxValue = max(scores)
+    # plt.ylim(minValue - 0.05 * abs(minValue), maxValue + 0.05 * abs(maxValue))
+    # fig = plt.gcf()
+    # fig.set_size_inches(20, 11.25)
+    # fig.savefig(os.path.join('plot', filename), dpi=96)
+    # plt.close("all")

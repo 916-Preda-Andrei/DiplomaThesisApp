@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, Response
+from flask import Flask, request, jsonify
 
 from controllers.App import App
 from model.Load import Load
@@ -8,6 +8,7 @@ from model.StreetType import StreetType
 app = Flask(__name__)
 service = App()
 
+
 @app.after_request
 def add_headers(response):
     response.headers['Access-Control-Allow-Origin'] = 'http://localhost:4200'
@@ -15,17 +16,19 @@ def add_headers(response):
     response.headers['Access-Control-Allow-Methods'] = "POST, GET, PUT, DELETE, OPTION"
     return response
 
-@app.route('/start', methods = ['GET'])
+
+@app.route('/start', methods=['GET'])
 def start():
     if request.method == "GET":
-        message, status = service.start()
-        return message, status
+        response, status = service.start()
+        return jsonify({'message': response, 'status': status})
 
-@app.route('/startOptimized', methods = ['GET'])
+
+@app.route('/startOptimized', methods=['GET'])
 def startOptimized():
     if request.method == "GET":
-        message, status = service.startOptimized()
-        return message, status
+        response, status = service.startOptimized()
+        return jsonify({'message': response, 'status': status})
 
 
 def computeStreetType(street):
@@ -40,7 +43,7 @@ def computeStreetType(street):
     return None
 
 
-@app.route('/edit/streets', methods = ['POST'])
+@app.route('/edit/streets', methods=['POST'])
 def editStreets():
     if request.method != "POST":
         return "Bad Request", 400
@@ -56,9 +59,10 @@ def editStreets():
         streets.append(Street(computeStreetType(street), lanesIn, lanesOut))
 
     response, status = service.editStreets(streets)
-    return {"message": response, "status": status}
+    return jsonify({'message': response, 'status': status})
 
-@app.route('/edit/loads', methods = ['POST'])
+
+@app.route('/edit/loads', methods=['POST'])
 def editLoads():
     if request.method != "POST":
         return "Bad Request", 400
@@ -71,7 +75,8 @@ def editLoads():
         loads.append(Load(computeStreetType(fromEdge), computeStreetType(toEdge), loadFactor))
 
     response, status = service.editLoads(loads)
-    return {"message": response, "status": status}
+    return jsonify({'message': response, 'status': status})
+
 
 if __name__ == '__main__':
     app.run(debug=False)

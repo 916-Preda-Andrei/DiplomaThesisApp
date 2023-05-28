@@ -20,12 +20,12 @@ export class Service {
     constructor(private http: HttpClient){
     }
 
-    startSumo(): Observable<String> {
-        return this.http.get<String>(this.backendUrl + "start");
+    startSumo(): Observable<Response> {
+        return this.http.get<Response>(this.backendUrl + "start");
     }
 
-    startSumoOptimized(): Observable<String> {
-        return this.http.get<String>(this.backendUrl + "startOptimized");
+    startSumoOptimized(): Observable<Response> {
+        return this.http.get<Response>(this.backendUrl + "startOptimized");
     }
 
     editStreets(streets: Street[]): Observable<Response> {

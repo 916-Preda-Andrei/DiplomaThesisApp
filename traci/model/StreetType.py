@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class StreetType(Enum):
     WEST = 1
     EAST = 2

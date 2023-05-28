@@ -25,10 +25,10 @@ class App:
 
     def start(self):
         if self.runner is not None and self.runner.running:
-            return "SUMO already started", 200
+            return "SUMO already started", 405
 
         if self.networkCreator is None:
-            return "No network has been created yet", 400
+            return "No network has been created yet", 404
 
         self.runner = Runner(self.networkCreator.connections)
 
@@ -42,16 +42,18 @@ class App:
 
     def startOptimized(self):
         if self.runner is not None and self.runner.running:
-            return "SUMO already started", 200
+            return "SUMO already started", 405
 
         if self.networkCreator is None:
-            return "No network has been created yet", 400
+            return "No network has been created yet", 404
 
         self.runner = Runner(self.networkCreator.connections)
         env = Environment()
-        agent = Agent(alpha=Utils.ALPHA.value, gamma=Utils.GAMMA.value, numberOfActions=Utils.NUMBER_OF_ACTIONS.value, batchSize=Utils.BATCH_SIZE.value,
-                  inputDimensions=Utils.INPUT_DIMENSIONS.value, memorySize=Utils.MEMORY_SIZE.value,
-                  filename=Utils.MODEL_FILENAME.value, memoryFilename=Utils.MEMORY_FILENAME.value, learningStepsToTake=Utils.LEARNING_STEPS.value)
+        agent = Agent(alpha=Utils.ALPHA.value, gamma=Utils.GAMMA.value, numberOfActions=Utils.NUMBER_OF_ACTIONS.value,
+                      batchSize=Utils.BATCH_SIZE.value,
+                      inputDimensions=Utils.INPUT_DIMENSIONS.value, memorySize=Utils.MEMORY_SIZE.value,
+                      filename=Utils.MODEL_FILENAME.value, memoryFilename=Utils.MEMORY_FILENAME.value,
+                      learningStepsToTake=Utils.LEARNING_STEPS.value)
         agent.loadModel()
         env.createFrom(self.networkCreator, self.runner, self.streets)
 

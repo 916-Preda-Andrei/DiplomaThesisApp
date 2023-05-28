@@ -11,7 +11,6 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./runner.component.css']
 })
 export class RunnerComponent {
-  simulatorStarted: boolean = false;
   loadFactors: LoadFactor[] = [] 
 
   constructor(private service: Service, private dialog: MatDialog, private toastr: ToastrService) { 
@@ -21,26 +20,26 @@ export class RunnerComponent {
   }
 
   start_normal(): void {
-    if (this.simulatorStarted) {
-      this.openErrorDialog("A simulator is already running! Close that one in order to start another one!");
-      return;
-    }
-
-    this.simulatorStarted = true;
     this.service.startSumo().subscribe( response => {
-      this.simulatorStarted = false;
+      if (response.status === 404){
+          this.openErrorDialog("No network has been created yet!");
+      }
+      else if(response.status === 405){
+        this.openErrorDialog("Another simulator is already running! Stop that one in order to start a new one!")
+      }
     });
   }
 
   start_optimized(): void {
-    if (this.simulatorStarted) {
-      this.openErrorDialog("A simulator is already running! Close that one in order to start another one!");
-      return;
-    }
 
-    this.simulatorStarted = true;
     this.service.startSumoOptimized().subscribe( response => {
-      this.simulatorStarted = false;
+      console.log(response.status);
+      if (response.status === 404){
+        this.openErrorDialog("No network has been created yet!");
+      }
+      else if(response.status === 405){
+        this.openErrorDialog("Another simulator is already running! Stop that one in order to start a new one!")
+      }
     });
   }
 

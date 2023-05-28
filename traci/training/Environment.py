@@ -11,6 +11,10 @@ from model.Street import Street
 from training.Utils import Utils, directionMapper, getSumoBinary, allStreetTypes
 
 
+def collectCountDataForConnection(connection):
+    return traci.lane.getLastStepVehicleNumber(connection.getLaneId())
+
+
 class Environment:
     def __init__(self):
         self.networkCreator = None
@@ -19,7 +23,6 @@ class Environment:
         self.lanesOnMoveType = {MoveType.NSR1: 0, MoveType.WER2: 0, MoveType.L1R1: 0, MoveType.L2R2: 0}
         self.totalLoadFactor = None
         self.remainingSteps = 0
-        self.currentTotalLoad = None
         self.changingLoadsTime = 200
 
     def calculateTotalLoadFactor(self):
@@ -35,7 +38,6 @@ class Environment:
         self.networkCreator = NetworkCreator(streets)
         self.networkCreator.createNetworkFile()
         self.runner = Runner(self.networkCreator.connections)
-        self.numberOfLanes = 0
 
         for connection in self.networkCreator.connections:
             moveDirections = directionMapper[(connection.getFromEdge(), connection.getToEdge())]
@@ -78,8 +80,9 @@ class Environment:
         self.generateLoads()
 
         sumoBinary = getSumoBinary()
-        traci.start([sumoBinary, "-c", Utils.PATH_TO_SUMOCFG_FILE.value,
-                     "--tripinfo-output", "app.tripinfo.xml", "--start", "--quit-on-end", "--waiting-time-memory", "10000"])
+        traci.start(
+            [sumoBinary, "-c", Utils.PATH_TO_SUMOCFG_FILE.value, "--start", "--quit-on-end", "--waiting-time-memory",
+             "10000"])
 
         return self.warmUp()
 
@@ -94,16 +97,9 @@ class Environment:
     def step(self, action):
         reward = self.runner.performStep(action * 2)
         self.remainingSteps -= 1
-        # if self.remainingSteps % 10 == 0:
-        #     print('Remaining steps:', self.remainingSteps)
-
-        return self.getObservation(), reward, self.remainingSteps == 0, "no info"
+        return self.getObservation(), reward, self.remainingSteps == 0
 
     def getObservation(self):
-        # carsForMoveDirection = {(1, 2): 0, (1, 3): 0, (1, 4): 0, (2, 1): 0, (2, 3): 0, (2, 4): 0,
-        #                         (3, 1): 0, (3, 2): 0, (3, 4): 0, (4, 1): 0, (4, 2): 0, (4, 3): 0}
-        # lanesForMoveDirection = {(1, 2): 0, (1, 3): 0, (1, 4): 0, (2, 1): 0, (2, 3): 0, (2, 4): 0,
-        #                          (3, 1): 0, (3, 2): 0, (3, 4): 0, (4, 1): 0, (4, 2): 0, (4, 3): 0}
         carsForMoveType = {MoveType.NSR1: 0, MoveType.WER2: 0, MoveType.L1R1: 0, MoveType.L2R2: 0}
         computedLanes = set()
 
@@ -113,15 +109,11 @@ class Environment:
             computedLanes.add((connection.getFromEdge(), connection.fromLane))
             direction = (connection.getFromEdge(), connection.getToEdge())
 
-            carsOnLane = self.collectCountDataForConnection(connection)
-            # lanesForMoveDirection[direction] += 1
+            carsOnLane = collectCountDataForConnection(connection)
             for moveType in directionMapper[direction]:
                 carsForMoveType[moveType] += carsOnLane
 
         return State(carsForMoveType, self.runner.currentSemaphorePhase // 2).stateList
-
-    def collectCountDataForConnection(self, connection):
-        return traci.lane.getLastStepVehicleNumber(connection.getLaneId())
 
     def generateLoads(self):
         counterForWays = {}

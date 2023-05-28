@@ -1,10 +1,10 @@
 import subprocess
 
 from creators.ConnectionCreator import ConnectionCreator
+from creators.EdgeCreator import EdgeCreator
 from creators.RouteCreator import RouteCreator
 from creators.TrafficLightsCreator import TrafficLightsCreator
 from model.Edge import Edge
-from creators.EdgeCreator import EdgeCreator
 
 
 class NetworkCreator:
@@ -39,7 +39,6 @@ class NetworkCreator:
         TrafficLightsCreator(connections, streets)
         return connections
 
-
     def createNetworkFile(self):
         process = subprocess.Popen(self.BASH_COMMAND.split(), stdout=subprocess.PIPE)
         output, error = process.communicate()
@@ -52,5 +51,3 @@ class NetworkCreator:
                 fakeEdges.append(Edge(streetType, 0, 0))
                 fakeEdges.append(Edge(0, streetType, 0))
         return fakeEdges
-
-

@@ -49,5 +49,6 @@ class RouteCreator:
                 for connection in self.connections:
                     randomNumber = random.random()
                     if randomNumber < connection.loadFactor and counter < self.INITIAL_VEHICLE_COUNT:
-                        print(self.TAB + "<vehicle depart=\"0\" id=\"I" + str(counter) + "\" route=\"" + connection.routeId + "\" type=\"CarA\"/>", file=routesFile)
+                        print(self.TAB + "<vehicle depart=\"0\" id=\"I" + str(
+                            counter) + "\" route=\"" + connection.routeId + "\" type=\"CarA\"/>", file=routesFile)
                         counter = counter + 1
