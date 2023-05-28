@@ -79,6 +79,7 @@ class Runner:
             traci.close()
             sys.stdout.flush()
             self.running = False
+        self.currentSemaphorePhase = 6
 
     def changeLoadFactorForConnections(self, fromEdge, toEdge, newLoadFactor):
         for index in range(len(self.connections)):
