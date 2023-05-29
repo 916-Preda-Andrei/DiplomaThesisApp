@@ -69,7 +69,7 @@ class Utils(Enum):
     PATH_TO_SUMOCFG_FILE = "creators/sumo_files/app.sumocfg"
     STEPS_UNTIL_FIRST_OBSERVATION = 129  # 4 * 30 + 3 * 3
 
-    SEMAPHORE_DECISION = 5
+    SEMAPHORE_DECISION = 10
     YELLOW_LIGHT = 3
     DEFAULT_SEMAPHORE_DURATION = 30
 
