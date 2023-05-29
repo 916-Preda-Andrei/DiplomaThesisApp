@@ -51,7 +51,7 @@ class Utils(Enum):
     STARTING_EPISODE = 0
     EPISODES = 200
     TOTAL_ITERATION_STEPS = 1000
-    LEARNING_STEPS = 800
+    LEARNING_STEPS = 10
     GAMMA = 0.75
 
     # Learning rate
