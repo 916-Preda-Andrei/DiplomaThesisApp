@@ -12,7 +12,13 @@ from training.Utils import Utils, directionMapper, getSumoBinary, allStreetTypes
 
 
 def collectCountDataForConnection(connection):
-    return traci.lane.getLastStepVehicleNumber(connection.getLaneId())
+    counter = 0
+    vehicles = traci.lane.getLastStepVehicleIDs(connection.getLaneId())
+    for vehicle in vehicles:
+        x, y = traci.vehicle.getPosition(vehicle)
+        if (abs(x - 500.0) + abs(y - 500.0)) <= Utils.DETECT_CARS_DISTANCE.value:
+            counter += 1
+    return counter
 
 
 class Environment:
@@ -23,7 +29,7 @@ class Environment:
         self.lanesOnMoveType = {MoveType.NSR1: 0, MoveType.WER2: 0, MoveType.L1R1: 0, MoveType.L2R2: 0}
         self.totalLoadFactor = None
         self.remainingSteps = 0
-        self.changingLoadsTime = 200
+        self.changingLoadsTime = 100
 
     def calculateTotalLoadFactor(self):
         if self.networkCreator is None:
@@ -97,6 +103,8 @@ class Environment:
     def step(self, action):
         reward = self.runner.performStep(action * 2)
         self.remainingSteps -= 1
+        if (self.remainingSteps % self.changingLoadsTime) == 0:
+            self.generateLoads()
         return self.getObservation(), reward, self.remainingSteps == 0
 
     def getObservation(self):

@@ -94,6 +94,8 @@ class Runner:
         vehicles = traci.vehicle.getIDList()
         for vehicle in vehicles:
             if re.search(LANE_OUT_REGEX, traci.vehicle.getLaneID(vehicle)):
-                totalWaitingTime += traci.vehicle.getAccumulatedWaitingTime(vehicle)
+                x, y = traci.vehicle.getPosition(vehicle)
+                if (abs(x-500.0) + abs(y-500.0)) <= Utils.DETECT_CARS_DISTANCE.value:
+                    totalWaitingTime += traci.vehicle.getAccumulatedWaitingTime(vehicle)
 
         return totalWaitingTime

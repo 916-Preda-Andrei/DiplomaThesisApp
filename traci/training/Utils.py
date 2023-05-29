@@ -72,5 +72,6 @@ class Utils(Enum):
     SEMAPHORE_DECISION = 10
     YELLOW_LIGHT = 3
     DEFAULT_SEMAPHORE_DURATION = 30
+    DETECT_CARS_DISTANCE = 100.0
 
     initialSemaphorePhases = [MoveType.NSR1, MoveType.WER2, MoveType.L1R1, MoveType.L2R2]
