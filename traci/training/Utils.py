@@ -49,29 +49,51 @@ class Utils(Enum):
     LOAD_REPLAY_BUFFER = True
     SAVE_TO_DRIVE = True
     STARTING_EPISODE = 0
-    EPISODES = 200
-    TOTAL_ITERATION_STEPS = 1000
+    EPISODES = 5000
+    PRE_TRAINING_EPISODES = 500
+    TOTAL_ITERATION_STEPS = 4000
     LEARNING_STEPS = 10
-    GAMMA = 0.75
 
     # Learning rate
-    ALPHA = 0.0005
+    ALPHA = 0.001
 
-    INPUT_DIMENSIONS = 8
+    # Gamma
+    GAMMA_PRETRAIN = 0
+    GAMMA = 0.8
+
+    INPUT_DIMENSIONS = 37
     NUMBER_OF_ACTIONS = 4
-    MEMORY_SIZE = 50000
-    BATCH_SIZE = 100
+    MEMORY_AFTER_UPDATE = 1000
+    UPDATE_PERIOD = 300
+    UPDATE_WITH_TARGET = 5
+    MEMORY_SIZE = TOTAL_ITERATION_STEPS * UPDATE_WITH_TARGET + MEMORY_AFTER_UPDATE
+    SAMPLE_SIZE = 300
+    SAMPLE_SIZE_PRETRAIN = 3000
+    BATCH_SIZE = 20
 
     MODEL_FILENAME = "dqn_model.h5"
     MEMORY_FILENAME = "replay_buffer.txt"
     MODEL_PNG = "training.png"
 
     PATH_TO_SUMOCFG_FILE = "creators/sumo_files/app.sumocfg"
-    STEPS_UNTIL_FIRST_OBSERVATION = 129  # 4 * 30 + 3 * 3
+    PATH_TO_SUMOCFG_FILE_TRAINING = "creators/sumo_files/cross_train.sumocfg"
+    PATH_TO_SUMOCFG_FILE_PRE_TRAINING = "creators/sumo_files/cross_pretrain.sumocfg"
+    STEPS_UNTIL_FIRST_OBSERVATION = 30  # 4 * 30 + 3 * 3 = 129
 
-    SEMAPHORE_DECISION = 10
+    SEMAPHORE_DECISION = 5
     YELLOW_LIGHT = 3
     DEFAULT_SEMAPHORE_DURATION = 30
-    DETECT_CARS_DISTANCE = 100.0
+    INITIAL_VEHICLE_COUNT = 20
 
     initialSemaphorePhases = [MoveType.NSR1, MoveType.WER2, MoveType.L1R1, MoveType.L2R2]
+
+    # Weights for reward
+    W1 = -0.25
+    W2 = -0.25
+    W3 = -0.25
+    W4 = -5.0
+    W5 = 1.0
+    W6 = 1.0
+
+    # Vehicle
+    VEHICLE_SPEED = 5.0

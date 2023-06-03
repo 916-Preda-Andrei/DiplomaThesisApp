@@ -11,14 +11,14 @@ from model.Street import Street
 from training.Utils import Utils, directionMapper, getSumoBinary, allStreetTypes
 
 
-def collectCountDataForConnection(connection):
-    counter = 0
-    vehicles = traci.lane.getLastStepVehicleIDs(connection.getLaneId())
-    for vehicle in vehicles:
-        x, y = traci.vehicle.getPosition(vehicle)
-        if (abs(x - 500.0) + abs(y - 500.0)) <= Utils.DETECT_CARS_DISTANCE.value:
-            counter += 1
-    return counter
+def collectCountDataForLane(lane):
+    return traci.lane.getLastStepVehicleNumber(lane)
+
+def collectWaitingDataForLane(lane):
+    return traci.lane.getWaitingTime(lane) / 60.0
+
+def collectQueueDataForLane(lane):
+    return traci.lane.getLastStepHaltingNumber(lane)
 
 
 class Environment:
@@ -27,9 +27,13 @@ class Environment:
         self.runner = None
         self.streets = {}
         self.lanesOnMoveType = {MoveType.NSR1: 0, MoveType.WER2: 0, MoveType.L1R1: 0, MoveType.L2R2: 0}
+        self.scheduleMoveType = {}
         self.totalLoadFactor = None
         self.remainingSteps = 0
         self.changingLoadsTime = 100
+
+    def setSchedule(self, schedule):
+        self.scheduleMoveType = {MoveType.NSR1: schedule[0], MoveType.WER2: schedule[1], MoveType.L1R1: schedule[2], MoveType.L2R2: schedule[3]}
 
     def calculateTotalLoadFactor(self):
         if self.networkCreator is None:
@@ -57,7 +61,7 @@ class Environment:
         self.streets = streets
         self.calculateTotalLoadFactor()
 
-    def reset(self):
+    def reset(self, preTraining=False, training=False):
         self.remainingSteps = Utils.TOTAL_ITERATION_STEPS.value
         ok = False
         while not ok:
@@ -83,12 +87,18 @@ class Environment:
         if self.runner is None:
             raise TrafficAppException("Runner not working!")
 
-        self.generateLoads()
+        # self.generateLoads()
+
+        sumoFile = Utils.PATH_TO_SUMOCFG_FILE.value
+        if training:
+            sumoFile = Utils.PATH_TO_SUMOCFG_FILE_TRAINING.value
+            if preTraining:
+                sumoFile = Utils.PATH_TO_SUMOCFG_FILE_PRE_TRAINING.value
 
         sumoBinary = getSumoBinary()
         traci.start(
-            [sumoBinary, "-c", Utils.PATH_TO_SUMOCFG_FILE.value, "--start", "--quit-on-end", "--waiting-time-memory",
-             "10000"])
+            [sumoBinary, "-c", sumoFile, "--start", "--quit-on-end", "--waiting-time-memory",
+             "1000"])
 
         return self.warmUp()
 
@@ -103,25 +113,28 @@ class Environment:
     def step(self, action):
         reward = self.runner.performStep(action * 2)
         self.remainingSteps -= 1
-        if (self.remainingSteps % self.changingLoadsTime) == 0:
-            self.generateLoads()
+        # if (self.remainingSteps % self.changingLoadsTime) == 0:
+        #     self.generateLoads()
         return self.getObservation(), reward, self.remainingSteps == 0
 
     def getObservation(self):
-        carsForMoveType = {MoveType.NSR1: 0, MoveType.WER2: 0, MoveType.L1R1: 0, MoveType.L2R2: 0}
+        carsForLane = {}
+        waitingForLane = {}
+        queueForLane = {}
+
         computedLanes = set()
 
         for connection in self.networkCreator.connections:
             if (connection.getFromEdge(), connection.fromLane) in computedLanes:
                 continue
             computedLanes.add((connection.getFromEdge(), connection.fromLane))
-            direction = (connection.getFromEdge(), connection.getToEdge())
 
-            carsOnLane = collectCountDataForConnection(connection)
-            for moveType in directionMapper[direction]:
-                carsForMoveType[moveType] += carsOnLane
+            laneId = connection.getLaneId()
+            carsForLane[laneId] = collectCountDataForLane(laneId)
+            waitingForLane[laneId] = collectWaitingDataForLane(laneId)
+            queueForLane[laneId] = collectQueueDataForLane(laneId)
 
-        return State(carsForMoveType, self.runner.currentSemaphorePhase // 2).stateList
+        return State(carsForLane, waitingForLane, queueForLane, self.runner.currentSemaphorePhase // 2).stateList
 
     def generateLoads(self):
         counterForWays = {}

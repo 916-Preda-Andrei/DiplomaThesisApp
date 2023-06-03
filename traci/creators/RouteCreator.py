@@ -1,10 +1,11 @@
 import random
 
+from training.Utils import Utils
+
 
 class RouteCreator:
     FILENAME = "creators/sumo_files/app.rou.xml"
     TAB = "   "
-    INITIAL_VEHICLE_COUNT = 20
 
     def __init__(self, nr_of_streets, connections):
         self.nr_of_streets = nr_of_streets
@@ -17,7 +18,7 @@ class RouteCreator:
         with open(self.FILENAME, "w") as routesFile:
             print("""<?xml version="1.0" encoding="UTF-8"?>
 <routes>
-   <vType accel="3.0" decel="6.0" id="CarA" length="5.0" minGap="0" maxSpeed="20.0" sigma="0.5" />""",
+   <vType id="CarA" accel="0.8" decel="4.5" sigma="0.5" length="3" minGap="1" maxSpeed="16.67" guiShape="passenger"/>""",
                   file=routesFile)
 
     def end_file(self):
@@ -45,10 +46,10 @@ class RouteCreator:
     def addInitialVehicles(self):
         counter = 0
         with open(self.FILENAME, "a") as routesFile:
-            while counter < self.INITIAL_VEHICLE_COUNT:
+            while counter < Utils.INITIAL_VEHICLE_COUNT.value:
                 for connection in self.connections:
                     randomNumber = random.random()
-                    if randomNumber < connection.loadFactor and counter < self.INITIAL_VEHICLE_COUNT:
+                    if randomNumber < connection.loadFactor and counter < Utils.INITIAL_VEHICLE_COUNT.value:
                         print(self.TAB + "<vehicle depart=\"0\" id=\"I" + str(
                             counter) + "\" route=\"" + connection.routeId + "\" type=\"CarA\"/>", file=routesFile)
                         counter = counter + 1

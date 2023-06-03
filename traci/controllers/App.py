@@ -49,7 +49,7 @@ class App:
 
         self.runner = Runner(self.networkCreator.connections)
         env = Environment()
-        agent = Agent(alpha=Utils.ALPHA.value, gamma=Utils.GAMMA.value, numberOfActions=Utils.NUMBER_OF_ACTIONS.value,
+        agent = Agent(alpha=Utils.ALPHA.value, numberOfActions=Utils.NUMBER_OF_ACTIONS.value,
                       batchSize=Utils.BATCH_SIZE.value,
                       inputDimensions=Utils.INPUT_DIMENSIONS.value, memorySize=Utils.MEMORY_SIZE.value,
                       filename=Utils.MODEL_FILENAME.value, memoryFilename=Utils.MEMORY_FILENAME.value,
