@@ -4,7 +4,7 @@
 
     <input>
         <net-file value="app.net.xml" />
-        <route-files value="cross.switch.xml" />
+        <route-files value="cross.switch-pretrain.xml" />
         <additional-files value="cross.car.type.xml, app.program.xml" />
 
     </input>

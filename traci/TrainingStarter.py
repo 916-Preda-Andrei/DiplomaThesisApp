@@ -22,7 +22,7 @@ def preTraining(env, agent):
 
     schedules = [DEFAULT_SCHEDULE]
     for dominantPhase in range(4):
-        for increaseBy in range(1, 5):
+        for increaseBy in range(1, 4):
             schedule = copy.deepcopy(DEFAULT_SCHEDULE)
             schedule[dominantPhase] += increaseBy
             schedules.append(schedule)
@@ -46,6 +46,7 @@ def preTraining(env, agent):
                     actionIndex = (actionIndex + 1) % 4
             env.runner.endConnection()
             print("Pre-episode ended.")
+        agent.saveReplayBuffer()
 
     agent.updateNetwork(preTraining=True, useAverage=True)
     agent.updateNetworkBar(preTraining=True)
@@ -69,39 +70,43 @@ if __name__ == "__main__":
         print("End pre-training")
 
     # scores = []
-
     print("Starting training...")
-    done = False
-    score = 0.0
-    negativeReward = 0.0
-    observation = env.reset(preTraining=False, training=True)
-    counter = 0
-    while not done:
-        action = agent.chooseAction(observation, traci.simulation.getTime())
-        newObservation, reward, done = env.step(action)
-        if env.runner.changedSemaphore:
-            counter += 8
-        else:
-            counter += 5
-        # score += reward
-        # if reward < 0.0:
-        #     negativeReward += reward
-        agent.remember(observation, action, reward, newObservation)
-        observation = newObservation
+    for learningStep in range(Utils.LEARNING_STEPS.value):
+        print("Learning step #", learningStep, "started.")
+        done = False
+        score = 0.0
+        negativeReward = 0.0
+        observation = env.reset(preTraining=False, training=True)
+        counter = 0
+        while not done:
+            action = agent.chooseAction(observation, traci.simulation.getTime())
+            newObservation, reward, done = env.step(action)
+            if env.runner.changedSemaphore:
+                counter += 8
+            else:
+                counter += 5
+            score += reward
+            if reward < 0.0:
+                negativeReward += reward
+            agent.remember(observation, action, reward, newObservation)
+            observation = newObservation
 
-        if counter > Utils.UPDATE_PERIOD.value:
-            counter = 0
-            agent.updateNetwork(preTraining=False, useAverage=False)
-            agent.updateNetworkBar(preTraining=False)
+            if counter > Utils.UPDATE_PERIOD.value:
+                counter = 0
+                agent.updateNetwork(preTraining=False, useAverage=False)
+                agent.updateNetworkBar(preTraining=False)
 
-    print("Saving final model...")
-    agent.saveModel()
-    if Utils.SAVE_TO_DRIVE.value:
-        os.system("mv dqn_model.h5 gdrive/MyDrive/")
-        os.system("mv replay_buffer.txt gdrive/MyDrive/")
-    print("Final model saved")
+        env.runner.endConnection()
+        print('Learning step #', learningStep, ' had negative reward %.2f' % negativeReward)
+        print('Learning step #', learningStep, ' had total reward %.2f' % score)
 
-    env.runner.endConnection()
+        print("Saving model at the end of learning step #", learningStep, "...")
+        agent.saveModel()
+        if Utils.SAVE_TO_DRIVE.value:
+            os.system("mv dqn_model.h5 gdrive/MyDrive/")
+            os.system("mv replay_buffer.txt gdrive/MyDrive/")
+        print("Model saved")
+
     print("Training ended.")
         # print("Learning...")
         # agent.learn()

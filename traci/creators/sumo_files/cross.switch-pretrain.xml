@@ -1,0 +1,246 @@
+<routes>
+    <flow id="01" type="CarA" begin="0" end="500" number="50" from="E_4_0" to="E_0_3" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="02" type="CarA" begin="0" end="500" number="50" from="E_3_0" to="E_0_4" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="03" type="CarA" begin="0" end="500" number="50" from="E_4_0" to="E_0_1" departPos="free" departLane="0" departSpeed="5.0"/>
+    <flow id="04" type="CarA" begin="0" end="500" number="50" from="E_3_0" to="E_0_2" departPos="free" departLane="0" departSpeed="5.0"/>
+
+    <flow id="101" type="CarA" begin="250" end="500" number="25" from="E_1_0" to="E_0_4" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="102" type="CarA" begin="250" end="500" number="25" from="E_2_0" to="E_0_3" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="103" type="CarA" begin="250" end="500" number="25" from="E_4_0" to="E_0_2" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="104" type="CarA" begin="250" end="500" number="25" from="E_3_0" to="E_0_1" departPos="free" departLane="2" departSpeed="5.0"/>
+
+    <flow id="05" type="CarA" begin="500" end="1000" number="50" from="E_1_0" to="E_0_2" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="06" type="CarA" begin="500" end="1000" number="50" from="E_2_0" to="E_0_1" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="07" type="CarA" begin="500" end="1000" number="50" from="E_1_0" to="E_0_3" departPos="free" departLane="0" departSpeed="5.0"/>
+    <flow id="08" type="CarA" begin="500" end="1000" number="50" from="E_2_0" to="E_0_4" departPos="free" departLane="0" departSpeed="5.0"/>
+
+    <flow id="105" type="CarA" begin="750" end="1000" number="25" from="E_4_0" to="E_0_3" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="106" type="CarA" begin="750" end="1000" number="25" from="E_3_0" to="E_0_4" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="107" type="CarA" begin="750" end="1000" number="25" from="E_4_0" to="E_0_2" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="108" type="CarA" begin="750" end="1000" number="25" from="E_3_0" to="E_0_1" departPos="free" departLane="2" departSpeed="5.0"/>
+
+    <flow id="09" type="CarA" begin="1000" end="1500" number="50" from="E_1_0" to="E_0_4" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="10" type="CarA" begin="1000" end="1500" number="50" from="E_2_0" to="E_0_3" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="11" type="CarA" begin="1000" end="1500" number="50" from="E_4_0" to="E_0_1" departPos="free" departLane="0" departSpeed="5.0"/>
+    <flow id="12" type="CarA" begin="1000" end="1500" number="50" from="E_3_0" to="E_0_2" departPos="free" departLane="0" departSpeed="5.0"/>
+
+    <flow id="109" type="CarA" begin="1250" end="1500" number="25" from="E_4_0" to="E_0_3" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="110" type="CarA" begin="1250" end="1500" number="25" from="E_3_0" to="E_0_4" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="111" type="CarA" begin="1250" end="1500" number="25" from="E_1_0" to="E_0_2" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="112" type="CarA" begin="1250" end="1500" number="25" from="E_2_0" to="E_0_1" departPos="free" departLane="1" departSpeed="5.0"/>
+
+    <flow id="13" type="CarA" begin="1500" end="2000" number="50" from="E_4_0" to="E_0_2" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="14" type="CarA" begin="1500" end="2000" number="50" from="E_3_0" to="E_0_1" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="15" type="CarA" begin="1500" end="2000" number="50" from="E_1_0" to="E_0_3" departPos="free" departLane="0" departSpeed="5.0"/>
+    <flow id="16" type="CarA" begin="1500" end="2000" number="50" from="E_2_0" to="E_0_4" departPos="free" departLane="0" departSpeed="5.0"/>
+
+    <flow id="113" type="CarA" begin="1750" end="2000" number="25" from="E_1_0" to="E_0_4" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="114" type="CarA" begin="1750" end="2000" number="25" from="E_2_0" to="E_0_3" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="115" type="CarA" begin="1750" end="2000" number="25" from="E_1_0" to="E_0_2" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="116" type="CarA" begin="1750" end="2000" number="25" from="E_2_0" to="E_0_1" departPos="free" departLane="1" departSpeed="5.0"/>
+
+    <flow id="17" type="CarA" begin="2000" end="2500" number="50" from="E_4_0" to="E_0_3" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="18" type="CarA" begin="2000" end="2500" number="50" from="E_3_0" to="E_0_4" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="19" type="CarA" begin="2000" end="2500" number="50" from="E_4_0" to="E_0_1" departPos="free" departLane="0" departSpeed="5.0"/>
+    <flow id="20" type="CarA" begin="2000" end="2500" number="50" from="E_3_0" to="E_0_2" departPos="free" departLane="0" departSpeed="5.0"/>
+
+    <flow id="117" type="CarA" begin="2250" end="2500" number="25" from="E_1_0" to="E_0_4" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="118" type="CarA" begin="2250" end="2500" number="25" from="E_2_0" to="E_0_3" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="119" type="CarA" begin="2250" end="2500" number="25" from="E_4_0" to="E_0_2" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="120" type="CarA" begin="2250" end="2500" number="25" from="E_3_0" to="E_0_1" departPos="free" departLane="2" departSpeed="5.0"/>
+
+    <flow id="21" type="CarA" begin="2500" end="3000" number="50" from="E_1_0" to="E_0_2" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="22" type="CarA" begin="2500" end="3000" number="50" from="E_2_0" to="E_0_1" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="23" type="CarA" begin="2500" end="3000" number="50" from="E_1_0" to="E_0_3" departPos="free" departLane="0" departSpeed="5.0"/>
+    <flow id="24" type="CarA" begin="2500" end="3000" number="50" from="E_2_0" to="E_0_4" departPos="free" departLane="0" departSpeed="5.0"/>
+
+    <flow id="121" type="CarA" begin="2750" end="3000" number="25" from="E_1_0" to="E_0_4" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="122" type="CarA" begin="2750" end="3000" number="25" from="E_2_0" to="E_0_3" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="123" type="CarA" begin="2750" end="3000" number="25" from="E_4_0" to="E_0_3" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="124" type="CarA" begin="2750" end="3000" number="25" from="E_3_0" to="E_0_4" departPos="free" departLane="1" departSpeed="5.0"/>
+
+    <flow id="25" type="CarA" begin="3000" end="3500" number="50" from="E_4_0" to="E_0_2" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="26" type="CarA" begin="3000" end="3500" number="50" from="E_3_0" to="E_0_1" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="27" type="CarA" begin="3000" end="3500" number="50" from="E_1_0" to="E_0_3" departPos="free" departLane="0" departSpeed="5.0"/>
+    <flow id="28" type="CarA" begin="3000" end="3500" number="50" from="E_2_0" to="E_0_4" departPos="free" departLane="0" departSpeed="5.0"/>
+
+    <flow id="125" type="CarA" begin="3250" end="3500" number="25" from="E_4_0" to="E_0_3" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="126" type="CarA" begin="3250" end="3500" number="25" from="E_3_0" to="E_0_4" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="127" type="CarA" begin="3250" end="3500" number="25" from="E_1_0" to="E_0_2" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="128" type="CarA" begin="3250" end="3500" number="25" from="E_2_0" to="E_0_1" departPos="free" departLane="1" departSpeed="5.0"/>
+
+    <flow id="29" type="CarA" begin="3500" end="4000" number="50" from="E_1_0" to="E_0_4" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="30" type="CarA" begin="3500" end="4000" number="50" from="E_2_0" to="E_0_3" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="31" type="CarA" begin="3500" end="4000" number="50" from="E_4_0" to="E_0_1" departPos="free" departLane="0" departSpeed="5.0"/>
+    <flow id="32" type="CarA" begin="3500" end="4000" number="50" from="E_3_0" to="E_0_2" departPos="free" departLane="0" departSpeed="5.0"/>
+
+    <flow id="129" type="CarA" begin="3750" end="4000" number="25" from="E_1_0" to="E_0_2" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="130" type="CarA" begin="3750" end="4000" number="25" from="E_2_0" to="E_0_1" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="131" type="CarA" begin="3750" end="4000" number="25" from="E_4_0" to="E_0_2" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="132" type="CarA" begin="3750" end="4000" number="25" from="E_3_0" to="E_0_1" departPos="free" departLane="2" departSpeed="5.0"/>
+
+    <flow id="33" type="CarA" begin="4000" end="4500" number="50" from="E_4_0" to="E_0_3" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="34" type="CarA" begin="4000" end="4500" number="50" from="E_3_0" to="E_0_4" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="35" type="CarA" begin="4000" end="4500" number="50" from="E_4_0" to="E_0_1" departPos="free" departLane="0" departSpeed="5.0"/>
+    <flow id="36" type="CarA" begin="4000" end="4500" number="50" from="E_3_0" to="E_0_2" departPos="free" departLane="0" departSpeed="5.0"/>
+
+    <flow id="133" type="CarA" begin="4250" end="4500" number="25" from="E_1_0" to="E_0_2" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="134" type="CarA" begin="4250" end="4500" number="25" from="E_2_0" to="E_0_1" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="135" type="CarA" begin="4250" end="4500" number="25" from="E_4_0" to="E_0_2" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="136" type="CarA" begin="4250" end="4500" number="25" from="E_3_0" to="E_0_1" departPos="free" departLane="2" departSpeed="5.0"/>
+
+    <flow id="37" type="CarA" begin="4500" end="5000" number="50" from="E_1_0" to="E_0_4" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="38" type="CarA" begin="4500" end="5000" number="50" from="E_2_0" to="E_0_3" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="39" type="CarA" begin="4500" end="5000" number="50" from="E_4_0" to="E_0_1" departPos="free" departLane="0" departSpeed="5.0"/>
+    <flow id="40" type="CarA" begin="4500" end="5000" number="50" from="E_3_0" to="E_0_2" departPos="free" departLane="0" departSpeed="5.0"/>
+
+    <flow id="137" type="CarA" begin="4750" end="5000" number="25" from="E_1_0" to="E_0_4" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="138" type="CarA" begin="4750" end="5000" number="25" from="E_2_0" to="E_0_3" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="139" type="CarA" begin="4750" end="5000" number="25" from="E_4_0" to="E_0_3" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="140" type="CarA" begin="4750" end="5000" number="25" from="E_3_0" to="E_0_4" departPos="free" departLane="1" departSpeed="5.0"/>
+
+    <flow id="41" type="CarA" begin="5000" end="5500" number="50" from="E_1_0" to="E_0_2" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="42" type="CarA" begin="5000" end="5500" number="50" from="E_2_0" to="E_0_1" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="43" type="CarA" begin="5000" end="5500" number="50" from="E_1_0" to="E_0_3" departPos="free" departLane="0" departSpeed="5.0"/>
+    <flow id="44" type="CarA" begin="5000" end="5500" number="50" from="E_2_0" to="E_0_4" departPos="free" departLane="0" departSpeed="5.0"/>
+
+    <flow id="141" type="CarA" begin="5250" end="5500" number="25" from="E_4_0" to="E_0_3" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="142" type="CarA" begin="5250" end="5500" number="25" from="E_3_0" to="E_0_4" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="143" type="CarA" begin="5250" end="5500" number="25" from="E_1_0" to="E_0_4" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="144" type="CarA" begin="5250" end="5500" number="25" from="E_2_0" to="E_0_3" departPos="free" departLane="2" departSpeed="5.0"/>
+
+    <flow id="45" type="CarA" begin="5500" end="6000" number="50" from="E_4_0" to="E_0_2" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="46" type="CarA" begin="5500" end="6000" number="50" from="E_3_0" to="E_0_1" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="47" type="CarA" begin="5500" end="6000" number="50" from="E_1_0" to="E_0_3" departPos="free" departLane="0" departSpeed="5.0"/>
+    <flow id="48" type="CarA" begin="5500" end="6000" number="50" from="E_2_0" to="E_0_4" departPos="free" departLane="0" departSpeed="5.0"/>
+
+    <flow id="145" type="CarA" begin="5750" end="6000" number="25" from="E_1_0" to="E_0_4" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="146" type="CarA" begin="5750" end="6000" number="25" from="E_2_0" to="E_0_3" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="147" type="CarA" begin="5750" end="6000" number="25" from="E_1_0" to="E_0_2" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="148" type="CarA" begin="5750" end="6000" number="25" from="E_2_0" to="E_0_1" departPos="free" departLane="1" departSpeed="5.0"/>
+
+    <flow id="49" type="CarA" begin="6000" end="6500" number="50" from="E_4_0" to="E_0_3" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="50" type="CarA" begin="6000" end="6500" number="50" from="E_3_0" to="E_0_4" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="51" type="CarA" begin="6000" end="6500" number="50" from="E_4_0" to="E_0_1" departPos="free" departLane="0" departSpeed="5.0"/>
+    <flow id="52" type="CarA" begin="6000" end="6500" number="50" from="E_3_0" to="E_0_2" departPos="free" departLane="0" departSpeed="5.0"/>
+
+    <flow id="149" type="CarA" begin="6250" end="6500" number="25" from="E_1_0" to="E_0_2" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="150" type="CarA" begin="6250" end="6500" number="25" from="E_2_0" to="E_0_1" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="151" type="CarA" begin="6250" end="6500" number="25" from="E_4_0" to="E_0_2" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="152" type="CarA" begin="6250" end="6500" number="25" from="E_3_0" to="E_0_1" departPos="free" departLane="2" departSpeed="5.0"/>
+
+    <flow id="53" type="CarA" begin="6500" end="7000" number="50" from="E_1_0" to="E_0_4" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="54" type="CarA" begin="6500" end="7000" number="50" from="E_2_0" to="E_0_3" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="55" type="CarA" begin="6500" end="7000" number="50" from="E_4_0" to="E_0_1" departPos="free" departLane="0" departSpeed="5.0"/>
+    <flow id="56" type="CarA" begin="6500" end="7000" number="50" from="E_3_0" to="E_0_2" departPos="free" departLane="0" departSpeed="5.0"/>
+
+    <flow id="153" type="CarA" begin="6750" end="7000" number="25" from="E_4_0" to="E_0_3" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="154" type="CarA" begin="6750" end="7000" number="25" from="E_3_0" to="E_0_4" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="155" type="CarA" begin="6750" end="7000" number="25" from="E_1_0" to="E_0_2" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="156" type="CarA" begin="6750" end="7000" number="25" from="E_2_0" to="E_0_1" departPos="free" departLane="1" departSpeed="5.0"/>
+
+    <flow id="57" type="CarA" begin="7000" end="7500" number="50" from="E_4_0" to="E_0_2" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="58" type="CarA" begin="7000" end="7500" number="50" from="E_3_0" to="E_0_1" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="59" type="CarA" begin="7000" end="7500" number="50" from="E_1_0" to="E_0_3" departPos="free" departLane="0" departSpeed="5.0"/>
+    <flow id="60" type="CarA" begin="7000" end="7500" number="50" from="E_2_0" to="E_0_4" departPos="free" departLane="0" departSpeed="5.0"/>
+
+    <flow id="157" type="CarA" begin="7250" end="7500" number="25" from="E_4_0" to="E_0_3" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="158" type="CarA" begin="7250" end="7500" number="25" from="E_3_0" to="E_0_4" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="159" type="CarA" begin="7250" end="7500" number="25" from="E_1_0" to="E_0_4" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="160" type="CarA" begin="7250" end="7500" number="25" from="E_2_0" to="E_0_3" departPos="free" departLane="2" departSpeed="5.0"/>
+
+    <flow id="61" type="CarA" begin="7500" end="8000" number="50" from="E_1_0" to="E_0_2" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="62" type="CarA" begin="7500" end="8000" number="50" from="E_2_0" to="E_0_1" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="63" type="CarA" begin="7500" end="8000" number="50" from="E_1_0" to="E_0_3" departPos="free" departLane="0" departSpeed="5.0"/>
+    <flow id="64" type="CarA" begin="7500" end="8000" number="50" from="E_2_0" to="E_0_4" departPos="free" departLane="0" departSpeed="5.0"/>
+
+    <flow id="161" type="CarA" begin="7750" end="8000" number="25" from="E_1_0" to="E_0_4" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="162" type="CarA" begin="7750" end="8000" number="25" from="E_2_0" to="E_0_3" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="163" type="CarA" begin="7750" end="8000" number="25" from="E_4_0" to="E_0_2" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="164" type="CarA" begin="7750" end="8000" number="25" from="E_3_0" to="E_0_1" departPos="free" departLane="2" departSpeed="5.0"/>
+
+    <flow id="65" type="CarA" begin="8000" end="8500" number="50" from="E_4_0" to="E_0_3" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="66" type="CarA" begin="8000" end="8500" number="50" from="E_3_0" to="E_0_4" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="67" type="CarA" begin="8000" end="8500" number="50" from="E_4_0" to="E_0_1" departPos="free" departLane="0" departSpeed="5.0"/>
+    <flow id="68" type="CarA" begin="8000" end="8500" number="50" from="E_3_0" to="E_0_2" departPos="free" departLane="0" departSpeed="5.0"/>
+
+    <flow id="165" type="CarA" begin="8250" end="8500" number="25" from="E_1_0" to="E_0_4" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="166" type="CarA" begin="8250" end="8500" number="25" from="E_2_0" to="E_0_3" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="167" type="CarA" begin="8250" end="8500" number="25" from="E_1_0" to="E_0_2" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="168" type="CarA" begin="8250" end="8500" number="25" from="E_2_0" to="E_0_1" departPos="free" departLane="1" departSpeed="5.0"/>
+
+    <flow id="69" type="CarA" begin="8500" end="9000" number="50" from="E_4_0" to="E_0_2" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="70" type="CarA" begin="8500" end="9000" number="50" from="E_3_0" to="E_0_1" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="71" type="CarA" begin="8500" end="9000" number="50" from="E_1_0" to="E_0_3" departPos="free" departLane="0" departSpeed="5.0"/>
+    <flow id="72" type="CarA" begin="8500" end="9000" number="50" from="E_2_0" to="E_0_4" departPos="free" departLane="0" departSpeed="5.0"/>
+
+    <flow id="169" type="CarA" begin="8750" end="9000" number="25" from="E_1_0" to="E_0_4" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="170" type="CarA" begin="8750" end="9000" number="25" from="E_2_0" to="E_0_3" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="171" type="CarA" begin="8750" end="9000" number="25" from="E_4_0" to="E_0_3" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="172" type="CarA" begin="8750" end="9000" number="25" from="E_3_0" to="E_0_4" departPos="free" departLane="1" departSpeed="5.0"/>
+
+    <flow id="73" type="CarA" begin="9000" end="9500" number="50" from="E_1_0" to="E_0_2" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="74" type="CarA" begin="9000" end="9500" number="50" from="E_2_0" to="E_0_1" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="75" type="CarA" begin="9000" end="9500" number="50" from="E_1_0" to="E_0_3" departPos="free" departLane="0" departSpeed="5.0"/>
+    <flow id="76" type="CarA" begin="9000" end="9500" number="50" from="E_2_0" to="E_0_4" departPos="free" departLane="0" departSpeed="5.0"/>
+
+    <flow id="173" type="CarA" begin="9250" end="9500" number="25" from="E_4_0" to="E_0_3" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="174" type="CarA" begin="9250" end="9500" number="25" from="E_3_0" to="E_0_4" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="175" type="CarA" begin="9250" end="9500" number="25" from="E_4_0" to="E_0_2" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="176" type="CarA" begin="9250" end="9500" number="25" from="E_3_0" to="E_0_1" departPos="free" departLane="2" departSpeed="5.0"/>
+
+    <flow id="77" type="CarA" begin="9500" end="10000" number="50" from="E_1_0" to="E_0_4" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="78" type="CarA" begin="9500" end="10000" number="50" from="E_2_0" to="E_0_3" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="79" type="CarA" begin="9500" end="10000" number="50" from="E_4_0" to="E_0_1" departPos="free" departLane="0" departSpeed="5.0"/>
+    <flow id="80" type="CarA" begin="9500" end="10000" number="50" from="E_3_0" to="E_0_2" departPos="free" departLane="0" departSpeed="5.0"/>
+
+    <flow id="177" type="CarA" begin="9750" end="10000" number="25" from="E_4_0" to="E_0_2" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="178" type="CarA" begin="9750" end="10000" number="25" from="E_3_0" to="E_0_1" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="179" type="CarA" begin="9750" end="10000" number="25" from="E_1_0" to="E_0_2" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="180" type="CarA" begin="9750" end="10000" number="25" from="E_2_0" to="E_0_1" departPos="free" departLane="1" departSpeed="5.0"/>
+
+    <flow id="81" type="CarA" begin="10000" end="10500" number="50" from="E_4_0" to="E_0_3" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="82" type="CarA" begin="10000" end="10500" number="50" from="E_3_0" to="E_0_4" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="83" type="CarA" begin="10000" end="10500" number="50" from="E_4_0" to="E_0_1" departPos="free" departLane="0" departSpeed="5.0"/>
+    <flow id="84" type="CarA" begin="10000" end="10500" number="50" from="E_3_0" to="E_0_2" departPos="free" departLane="0" departSpeed="5.0"/>
+
+    <flow id="181" type="CarA" begin="10250" end="10500" number="25" from="E_1_0" to="E_0_2" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="182" type="CarA" begin="10250" end="10500" number="25" from="E_2_0" to="E_0_1" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="183" type="CarA" begin="10250" end="10500" number="25" from="E_1_0" to="E_0_4" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="184" type="CarA" begin="10250" end="10500" number="25" from="E_2_0" to="E_0_3" departPos="free" departLane="2" departSpeed="5.0"/>
+
+    <flow id="85" type="CarA" begin="10500" end="11000" number="50" from="E_4_0" to="E_0_2" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="86" type="CarA" begin="10500" end="11000" number="50" from="E_3_0" to="E_0_1" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="87" type="CarA" begin="10500" end="11000" number="50" from="E_1_0" to="E_0_3" departPos="free" departLane="0" departSpeed="5.0"/>
+    <flow id="88" type="CarA" begin="10500" end="11000" number="50" from="E_2_0" to="E_0_4" departPos="free" departLane="0" departSpeed="5.0"/>
+
+    <flow id="185" type="CarA" begin="10750" end="11000" number="25" from="E_4_0" to="E_0_3" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="186" type="CarA" begin="10750" end="11000" number="25" from="E_3_0" to="E_0_4" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="187" type="CarA" begin="10750" end="11000" number="25" from="E_1_0" to="E_0_2" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="188" type="CarA" begin="10750" end="11000" number="25" from="E_2_0" to="E_0_1" departPos="free" departLane="1" departSpeed="5.0"/>
+
+    <flow id="89" type="CarA" begin="11000" end="11500" number="50" from="E_1_0" to="E_0_4" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="90" type="CarA" begin="11000" end="11500" number="50" from="E_2_0" to="E_0_3" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="91" type="CarA" begin="11000" end="11500" number="50" from="E_4_0" to="E_0_1" departPos="free" departLane="0" departSpeed="5.0"/>
+    <flow id="92" type="CarA" begin="11000" end="11500" number="50" from="E_3_0" to="E_0_2" departPos="free" departLane="0" departSpeed="5.0"/>
+
+    <flow id="189" type="CarA" begin="11250" end="11500" number="25" from="E_4_0" to="E_0_2" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="190" type="CarA" begin="11250" end="11500" number="25" from="E_3_0" to="E_0_1" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="191" type="CarA" begin="11250" end="11500" number="25" from="E_4_0" to="E_0_3" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="192" type="CarA" begin="11250" end="11500" number="25" from="E_3_0" to="E_0_4" departPos="free" departLane="1" departSpeed="5.0"/>
+
+    <flow id="93" type="CarA" begin="11500" end="12000" number="50" from="E_1_0" to="E_0_2" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="94" type="CarA" begin="11500" end="12000" number="50" from="E_2_0" to="E_0_1" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="95" type="CarA" begin="11500" end="12000" number="50" from="E_1_0" to="E_0_3" departPos="free" departLane="0" departSpeed="5.0"/>
+    <flow id="96" type="CarA" begin="11500" end="12000" number="50" from="E_2_0" to="E_0_4" departPos="free" departLane="0" departSpeed="5.0"/>
+
+    <flow id="193" type="CarA" begin="11750" end="12000" number="25" from="E_1_0" to="E_0_4" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="194" type="CarA" begin="11750" end="12000" number="25" from="E_2_0" to="E_0_3" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="195" type="CarA" begin="11750" end="12000" number="25" from="E_4_0" to="E_0_2" departPos="free" departLane="2" departSpeed="5.0"/>
+    <flow id="196" type="CarA" begin="11750" end="12000" number="25" from="E_3_0" to="E_0_1" departPos="free" departLane="2" departSpeed="5.0"/>
+
+    <flow id="97" type="CarA" begin="12000" end="12500" number="50" from="E_4_0" to="E_0_3" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="98" type="CarA" begin="12000" end="12500" number="50" from="E_3_0" to="E_0_4" departPos="free" departLane="1" departSpeed="5.0"/>
+    <flow id="99" type="CarA" begin="12000" end="12500" number="50" from="E_4_0" to="E_0_1" departPos="free" departLane="0" departSpeed="5.0"/>
+    <flow id="100" type="CarA" begin="12000" end="12500" number="50" from="E_3_0" to="E_0_2" departPos="free" departLane="0" departSpeed="5.0"/>
+</routes>

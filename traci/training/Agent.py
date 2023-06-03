@@ -36,9 +36,6 @@ def buildDQN(learningRate, numberOfActions, inputDimensions, firstFullyConnected
 def unison_shuffled_copies(Xs, Y, sample_weight):
     p = np.random.permutation(len(Y))
     new_Xs = Xs[p]
-    # for x in Xs:
-    #     assert len(x) == len(Y)
-    #     new_Xs.append(x[p])
     return new_Xs, Y[p], sample_weight[p]
 
 class Agent(object):
@@ -83,29 +80,6 @@ class Agent(object):
         actions = self.qEval.predict([state], verbose=None)
         return np.argmax(actions)
 
-    def learn(self):
-        pass
-        # if self.memory.memoryCounter < self.batchSize:
-        #     return
-        #
-        # for _ in range(self.learningStepsToTake):
-        #     states, actions, rewards, newStates = self.memory.sampleBuffer(self.batchSize)
-        #
-        #     qEval = self.qEval.predict([states], verbose=None)
-        #     qNext = self.qEval.predict([newStates], verbose=None)
-        #
-        #     x = np.zeros((self.batchSize, Utils.INPUT_DIMENSIONS.value))
-        #     y = np.zeros((self.batchSize, Utils.NUMBER_OF_ACTIONS.value))
-        #
-        #     for i in range(self.batchSize):
-        #         state, action, reward = states[i], actions[i], rewards[i]
-        #         currentQ = qEval[i]
-        #         currentQ[action] = reward + 0.9 * np.amax(qNext[i])
-        #         x[i] = state
-        #         y[i] = currentQ
-        #
-        #     self.qEval.fit(x, y, epochs=1, verbose=0)
-        # self.epsilon = max(self.epsilon*self.epsilonDecrease, self.epsilonMin)
 
     def updateNetwork(self, preTraining, useAverage):
         gamma = Utils.GAMMA_PRETRAIN.value
@@ -136,6 +110,13 @@ class Agent(object):
     def saveModel(self):
         print("Saving model...")
         self.qEval.save(self.modelFile)
+        if Utils.SAVE_TO_DRIVE.value:
+            os.system("mv dqn_model.h5 gdrive/MyDrive/")
+        print("Model saved")
+        self.saveReplayBuffer()
+
+    def saveReplayBuffer(self):
+        print("Saving replay memory...")
         with open(self.memoryFile, "w") as memory:
             for phase in range(4):
                 for action in range(4):
@@ -145,38 +126,40 @@ class Agent(object):
                         print(json.dumps(self.memory.actionMemory[phase][action][i], cls=NumpyArrayEncoder), file=memory)
                         print(self.memory.rewardMemory[phase][action][i], file=memory)
                         print(json.dumps(self.memory.newStateMemory[phase][action][i], cls=NumpyArrayEncoder), file=memory)
-        print("Model saved")
         if Utils.SAVE_TO_DRIVE.value:
-            os.system("mv dqn_model.h5 gdrive/MyDrive/")
             os.system("mv replay_buffer.txt gdrive/MyDrive/")
+        print("Replay memory saved.")
 
     def loadModel(self):
         self.qEval = load_model(self.modelFile)
         if Utils.LOAD_REPLAY_BUFFER.value:
-            with open(self.memoryFile) as memory:
-                line_nr = 0
-                lines = [line for line in memory]
-                for phase in range(4):
-                    for action in range(4):
+            self.loadReplayMemory()
+
+    def loadReplayMemory(self):
+        with open(self.memoryFile) as memory:
+            line_nr = 0
+            lines = [line for line in memory]
+            for phase in range(4):
+                for action in range(4):
+                    line = lines[line_nr]
+                    line_nr += 1
+                    self.memory.memoryCounter[phase][action] = int(line)
+                    for i in range(self.memory.memorySize):
                         line = lines[line_nr]
                         line_nr += 1
-                        self.memory.memoryCounter[phase][action] = int(line)
-                        for i in range(self.memory.memorySize):
-                            line = lines[line_nr]
-                            line_nr += 1
-                            self.memory.stateMemory[phase][action][i] = ast.literal_eval(line)
+                        self.memory.stateMemory[phase][action][i] = ast.literal_eval(line)
 
-                            line = lines[line_nr]
-                            line_nr += 1
-                            self.memory.actionMemory[phase][action][i] = ast.literal_eval(line)
+                        line = lines[line_nr]
+                        line_nr += 1
+                        self.memory.actionMemory[phase][action][i] = ast.literal_eval(line)
 
-                            line = lines[line_nr]
-                            line_nr += 1
-                            self.memory.rewardMemory[phase][action][i] = float(line)
+                        line = lines[line_nr]
+                        line_nr += 1
+                        self.memory.rewardMemory[phase][action][i] = float(line)
 
-                            line = lines[line_nr]
-                            line_nr += 1
-                            self.memory.newStateMemory[phase][action][i] = ast.literal_eval(line)
+                        line = lines[line_nr]
+                        line_nr += 1
+                        self.memory.newStateMemory[phase][action][i] = ast.literal_eval(line)
 
     def getSample(self, gamma, phase, action, preTraining, averageReward, useAverage):
         states, actions, rewards, newStates = self.memory.getSampleFor(phase, action, preTraining)

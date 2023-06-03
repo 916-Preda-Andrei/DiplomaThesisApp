@@ -13,24 +13,24 @@
    <route id="route10" edges="E_4_0 E_0_1"/>
    <route id="route11" edges="E_4_0 E_0_3"/>
    <route id="route12" edges="E_4_0 E_0_2"/>
-   <vehicle depart="0" id="I0" route="route10" type="CarA"/>
-   <vehicle depart="0" id="I1" route="route7" type="CarA"/>
-   <vehicle depart="0" id="I2" route="route2" type="CarA"/>
-   <vehicle depart="0" id="I3" route="route12" type="CarA"/>
-   <vehicle depart="0" id="I4" route="route2" type="CarA"/>
-   <vehicle depart="0" id="I5" route="route6" type="CarA"/>
+   <vehicle depart="0" id="I0" route="route5" type="CarA"/>
+   <vehicle depart="0" id="I1" route="route12" type="CarA"/>
+   <vehicle depart="0" id="I2" route="route6" type="CarA"/>
+   <vehicle depart="0" id="I3" route="route11" type="CarA"/>
+   <vehicle depart="0" id="I4" route="route8" type="CarA"/>
+   <vehicle depart="0" id="I5" route="route9" type="CarA"/>
    <vehicle depart="0" id="I6" route="route3" type="CarA"/>
-   <vehicle depart="0" id="I7" route="route11" type="CarA"/>
-   <vehicle depart="0" id="I8" route="route1" type="CarA"/>
-   <vehicle depart="0" id="I9" route="route4" type="CarA"/>
-   <vehicle depart="0" id="I10" route="route9" type="CarA"/>
+   <vehicle depart="0" id="I7" route="route8" type="CarA"/>
+   <vehicle depart="0" id="I8" route="route12" type="CarA"/>
+   <vehicle depart="0" id="I9" route="route5" type="CarA"/>
+   <vehicle depart="0" id="I10" route="route8" type="CarA"/>
    <vehicle depart="0" id="I11" route="route4" type="CarA"/>
-   <vehicle depart="0" id="I12" route="route2" type="CarA"/>
-   <vehicle depart="0" id="I13" route="route8" type="CarA"/>
+   <vehicle depart="0" id="I12" route="route6" type="CarA"/>
+   <vehicle depart="0" id="I13" route="route9" type="CarA"/>
    <vehicle depart="0" id="I14" route="route7" type="CarA"/>
-   <vehicle depart="0" id="I15" route="route3" type="CarA"/>
-   <vehicle depart="0" id="I16" route="route4" type="CarA"/>
-   <vehicle depart="0" id="I17" route="route1" type="CarA"/>
-   <vehicle depart="0" id="I18" route="route12" type="CarA"/>
-   <vehicle depart="0" id="I19" route="route8" type="CarA"/>
+   <vehicle depart="0" id="I15" route="route4" type="CarA"/>
+   <vehicle depart="0" id="I16" route="route5" type="CarA"/>
+   <vehicle depart="0" id="I17" route="route3" type="CarA"/>
+   <vehicle depart="0" id="I18" route="route6" type="CarA"/>
+   <vehicle depart="0" id="I19" route="route12" type="CarA"/>
 </routes>

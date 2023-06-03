@@ -27,21 +27,6 @@ class ReplayBuffer(object):
 
         self.memoryCounter[phase][action] += 1
 
-    def sampleBuffer(self, batchSize):
-        maxMemory = self.memorySize
-        for phase in range(4):
-            for action in range(4):
-                maxMemory = min(self.memoryCounter[phase][action], maxMemory)
-        indexes = [i for i in range(maxMemory)]
-        batch = random.sample(indexes, batchSize)
-
-        states = self.stateMemory[batch]
-        newStates = self.newStateMemory[batch]
-        rewards = self.rewardMemory[batch]
-        actions = self.actionMemory[batch]
-
-        return states, actions, rewards, newStates
-
     def resize(self, preTraining):
         for phase in range(4):
             for action in range(4):
