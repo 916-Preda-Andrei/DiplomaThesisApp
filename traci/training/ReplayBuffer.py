@@ -33,16 +33,25 @@ class ReplayBuffer(object):
                 if Utils.MEMORY_AFTER_UPDATE.value >= self.memoryCounter[phase][action]:
                     continue
                 if preTraining:
-                    indexes = [i for i in range(self.memoryCounter[phase][action])]
+                    indexes = [i for i in range(min(self.memoryCounter[phase][action], self.memorySize))]
                     leftIndexes = random.sample(indexes, Utils.MEMORY_AFTER_UPDATE.value)
                 else:
                     leftIndexes = [i % self.memorySize for i in range(self.memoryCounter[phase][action] - Utils.MEMORY_AFTER_UPDATE.value, self.memoryCounter[phase][action])]
-                self.stateMemory[phase][action] = self.stateMemory[phase][action][leftIndexes]
-                self.newStateMemory[phase][action] = self.newStateMemory[phase][action][leftIndexes]
-                self.rewardMemory[phase][action] = self.rewardMemory[phase][action][leftIndexes]
-                self.actionMemory[phase][action] = self.actionMemory[phase][action][leftIndexes]
+                states = self.stateMemory[phase][action][leftIndexes]
+                newStates = self.newStateMemory[phase][action][leftIndexes]
+                rewards = self.rewardMemory[phase][action][leftIndexes]
+                actions = self.actionMemory[phase][action][leftIndexes]
+                self.stateMemory[phase][action] = np.zeros((self.memorySize, self.inputShape))
+                self.newStateMemory[phase][action] = np.zeros((self.memorySize, self.inputShape))
+                self.actionMemory[phase][action] = np.zeros(self.memorySize)
+                self.rewardMemory[phase][action] = np.zeros(self.memorySize)
+                for i in range(Utils.MEMORY_AFTER_UPDATE.value):
+                  self.stateMemory[phase][action][i] = states[i]
+                  self.newStateMemory[phase][action][i] = newStates[i]
+                  self.actionMemory[phase][action][i] = actions[i]
+                  self.rewardMemory[phase][action][i] = rewards[i]
 
-                self.memoryCounter = Utils.MEMORY_AFTER_UPDATE.value
+                self.memoryCounter[phase][action] = Utils.MEMORY_AFTER_UPDATE.value
 
     def getAverageRewards(self):
         averageReward = np.zeros((4, 4))
@@ -58,7 +67,7 @@ class ReplayBuffer(object):
             sampleSize = min(sampleSize, Utils.SAMPLE_SIZE_PRETRAIN.value)
         else:
             sampleSize = min(sampleSize, Utils.SAMPLE_SIZE.value)
-        indexes = [i for i in range(self.memoryCounter[phase][action])]
+        indexes = [i for i in range(min(self.memoryCounter[phase][action], self.memorySize))]
         sampleIndexes = random.sample(indexes, sampleSize)
 
         return self.stateMemory[phase][action][sampleIndexes], self.actionMemory[phase][action][sampleIndexes], self.rewardMemory[phase][action][sampleIndexes], self.newStateMemory[phase][action][sampleIndexes]

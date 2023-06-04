@@ -45,7 +45,7 @@ def getSumoBinary():
 
 
 class Utils(Enum):
-    LOAD_MODEL = False
+    LOAD_MODEL = True
     LOAD_REPLAY_BUFFER = True
     SAVE_TO_DRIVE = True
     STARTING_EPISODE = 0

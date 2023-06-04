@@ -136,6 +136,7 @@ class Agent(object):
             self.loadReplayMemory()
 
     def loadReplayMemory(self):
+        print("Loading replay memory...")
         with open(self.memoryFile) as memory:
             line_nr = 0
             lines = [line for line in memory]
@@ -160,6 +161,7 @@ class Agent(object):
                         line = lines[line_nr]
                         line_nr += 1
                         self.memory.newStateMemory[phase][action][i] = ast.literal_eval(line)
+        print("Replay memory loaded.")
 
     def getSample(self, gamma, phase, action, preTraining, averageReward, useAverage):
         states, actions, rewards, newStates = self.memory.getSampleFor(phase, action, preTraining)
@@ -190,13 +192,15 @@ class Agent(object):
         episodes = Utils.PRE_TRAINING_EPISODES.value if preTraining else Utils.EPISODES.value
         batchSize = min(self.batchSize, len(Y))
         earlyStopping = EarlyStopping(monitor='val_loss', patience=10, verbose=0, mode='min')
-
+        print("Training the network...")
         self.qEval.fit(Xs, Y, batch_size=batchSize, epochs=episodes, shuffle=False, verbose=1, validation_split=0.3, callbacks=[earlyStopping])
-        self.saveModel()
+        print("Network trained.")
+        if preTraining:
+            self.saveModel()
 
     def getNextEstimatedReward(self, nextState):
         input_data = np.reshape(nextState, (1, 37))
-        return np.max(self.qEval_bar.predict([input_data], verbose=None))
+        return np.max(self.qEval_bar.predict_on_batch([input_data]))
 
     def buildFromMainNetwork(self):
         self.qEval_bar = clone_model(self.qEval)

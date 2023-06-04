@@ -11,45 +11,46 @@ DEFAULT_SCHEDULE = [2, 2, 2, 2]
 
 
 def preTraining(env, agent):
-    phaseCombinations = []
-    for phase2 in range(1, 4):
-        for phase3 in range(1, 4):
-            if phase3 != phase2:
-                for phase4 in range(1,4):
-                    if phase4 != phase3 and phase4!=phase2:
-                        phaseCombinations.append([0, phase2, phase3, phase4])
-
-
-    schedules = [DEFAULT_SCHEDULE]
-    for dominantPhase in range(4):
-        for increaseBy in range(1, 4):
-            schedule = copy.deepcopy(DEFAULT_SCHEDULE)
-            schedule[dominantPhase] += increaseBy
-            schedules.append(schedule)
-
-    for phaseCombination in phaseCombinations:
-        for schedule in schedules:
-            print("Pre-episode with schedule", schedule, "and phase combination", phaseCombination, "started...")
-            actionIndex = 0
-            stepsTaken = 0
-            done = False
-            env.setSchedule(schedule)
-            observation = env.reset(preTraining=True, training=True)
-            while not done:
-                action = phaseCombination[actionIndex]
-                newObservation, reward, done = env.step(action)
-                agent.remember(observation, action, reward, newObservation)
-                observation = newObservation
-                stepsTaken += 1
-                if stepsTaken >= schedule[actionIndex]:
-                    stepsTaken = 0
-                    actionIndex = (actionIndex + 1) % 4
-            env.runner.endConnection()
-            print("Pre-episode ended.")
-        agent.saveReplayBuffer()
-
+    # phaseCombinations = []
+    # for phase2 in range(1, 4):
+    #     for phase3 in range(1, 4):
+    #         if phase3 != phase2:
+    #             for phase4 in range(1,4):
+    #                 if phase4 != phase3 and phase4!=phase2:
+    #                     phaseCombinations.append([0, phase2, phase3, phase4])
+    #
+    #
+    # schedules = [DEFAULT_SCHEDULE]
+    # for dominantPhase in range(4):
+    #     for increaseBy in range(1, 4):
+    #         schedule = copy.deepcopy(DEFAULT_SCHEDULE)
+    #         schedule[dominantPhase] += increaseBy
+    #         schedules.append(schedule)
+    #
+    # for phaseCombination in phaseCombinations:
+    #     for schedule in schedules:
+    #         print("Pre-episode with schedule", schedule, "and phase combination", phaseCombination, "started...")
+    #         actionIndex = 0
+    #         stepsTaken = 0
+    #         done = False
+    #         env.setSchedule(schedule)
+    #         observation = env.reset(preTraining=True, training=True)
+    #         while not done:
+    #             action = phaseCombination[actionIndex]
+    #             newObservation, reward, done = env.step(action)
+    #             agent.remember(observation, action, reward, newObservation)
+    #             observation = newObservation
+    #             stepsTaken += 1
+    #             if stepsTaken >= schedule[actionIndex]:
+    #                 stepsTaken = 0
+    #                 actionIndex = (actionIndex + 1) % 4
+    #         env.runner.endConnection()
+    #         print("Pre-episode ended.")
+    #     agent.saveReplayBuffer()
+    agent.loadReplayMemory()
     agent.updateNetwork(preTraining=True, useAverage=True)
     agent.updateNetworkBar(preTraining=True)
+    agent.saveReplayBuffer()
 
     return agent
 
@@ -97,6 +98,7 @@ if __name__ == "__main__":
                 agent.updateNetworkBar(preTraining=False)
 
         env.runner.endConnection()
+        agent.saveModel()
         print('Learning step #', learningStep, ' had negative reward %.2f' % negativeReward)
         print('Learning step #', learningStep, ' had total reward %.2f' % score)
 
