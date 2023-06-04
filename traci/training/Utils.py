@@ -30,7 +30,7 @@ def checkSumoHome():
 def get_options():
     optParser = optparse.OptionParser()
     optParser.add_option("--nogui", action="store_true",
-                         default=False, help="run the commandline version of sumo")
+                         default=True, help="run the commandline version of sumo")
 
     options, args = optParser.parse_args()
     return options
@@ -45,14 +45,14 @@ def getSumoBinary():
 
 
 class Utils(Enum):
-    LOAD_MODEL = True
-    LOAD_REPLAY_BUFFER = True
+    LOAD_MODEL = False
+    LOAD_REPLAY_BUFFER = False
     SAVE_TO_DRIVE = True
     EPISODES = 5000
-    PRE_TRAINING_EPISODES = 1000
-    TOTAL_ITERATION_STEPS = 4000
+    PRE_TRAINING_EPISODES = 500
+    TOTAL_ITERATION_STEPS = 2000
     TOTAL_ITERATION_STEPS_PRE_TRAINING = 2000
-    STARTING_STEP = 1
+    STARTING_STEP = 0
     LEARNING_STEPS = 10
 
     # Learning rate
@@ -69,11 +69,11 @@ class Utils(Enum):
     UPDATE_WITH_TARGET = 5
     MEMORY_SIZE = TOTAL_ITERATION_STEPS * UPDATE_WITH_TARGET + MEMORY_AFTER_UPDATE
     SAMPLE_SIZE = 300
-    SAMPLE_SIZE_PRETRAIN = 10000
+    SAMPLE_SIZE_PRETRAIN = 3000
     BATCH_SIZE = 20
 
-    MODEL_FILENAME = "dqn_model_1LS.h5"
-    MEMORY_FILENAME = "replay_buffer_1LS.txt"
+    MODEL_FILENAME = "dqn_model_modified.h5"
+    MEMORY_FILENAME = "replay_buffer_modified.txt"
     MODEL_PNG = "training.png"
 
     PATH_TO_SUMOCFG_FILE = "creators/sumo_files/cross_pretrain.sumocfg"
@@ -89,9 +89,9 @@ class Utils(Enum):
     initialSemaphorePhases = [MoveType.NSR1, MoveType.WER2, MoveType.L1R1, MoveType.L2R2]
 
     # Weights for reward
-    W1 = -0.25
+    W1 = -0.4
     W2 = -0.25
-    W3 = -0.25
+    W3 = -0.4
     W4 = -5.0
     W5 = 1.0
     W6 = 1.0

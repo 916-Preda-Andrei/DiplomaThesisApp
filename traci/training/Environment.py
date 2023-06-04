@@ -62,7 +62,7 @@ class Environment:
         self.calculateTotalLoadFactor()
 
     def reset(self, preTraining=False, training=False):
-        self.remainingSteps = Utils.TOTAL_ITERATION_STEPS.value / 2 if not preTraining else Utils.TOTAL_ITERATION_STEPS_PRE_TRAINING.value
+        self.remainingSteps = Utils.TOTAL_ITERATION_STEPS.value if not preTraining else Utils.TOTAL_ITERATION_STEPS_PRE_TRAINING.value
         ok = False
         while not ok:
             streets = {}

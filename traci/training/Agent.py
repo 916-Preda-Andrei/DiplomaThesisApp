@@ -45,7 +45,7 @@ class Agent(object):
                  learningStepsToTake):
         self.actionSpace = [move.value for move in MoveType]
         self.numberOfActions = numberOfActions
-        self.epsilon = 0.040854
+        self.epsilon = 0.05
         self.epsilonDecrease = 0.9999
         self.epsilonMin = 0.001
         self.batchSize = batchSize
@@ -53,7 +53,7 @@ class Agent(object):
         self.memoryFile = memoryFilename
         self.alpha = alpha
         self.memory = ReplayBuffer(memorySize, inputDimensions, numberOfActions, discrete=True)
-        self.qEval = buildDQN(alpha, numberOfActions, inputDimensions, 20, 20)
+        self.qEval = buildDQN(alpha, numberOfActions, inputDimensions, 100, 100)
         self.qEval_bar = None
         self.buildFromMainNetwork()
         self.q_bar_outdated = 0
