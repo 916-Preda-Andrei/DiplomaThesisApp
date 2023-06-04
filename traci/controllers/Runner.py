@@ -38,16 +38,14 @@ class Runner:
         traci.trafficlight.setPhase("0", str(self.currentSemaphorePhase))
         return rewards
 
-    # def addVehicles(self):
-    #     current_time = traci.simulation.getTime()
-    #     for connection in self.connections:
-    #         randomNumber = random.random()
-    #         if randomNumber < connection.loadFactor:
-    #             vehicleId = "V" + str(self.vehiclesCount)
-    #             traci.vehicle.addLegacy(vehicleId, connection.routeId, lane=connection.fromLane,
-    #                                     speed=13.89, typeID="CarA")
-    #             self.enterTime[vehicleId] = current_time
-    #             self.vehiclesCount += 1
+    def addVehicles(self):
+        for connection in self.connections:
+            randomNumber = random.random()
+            if randomNumber < connection.loadFactor:
+                vehicleId = "V" + str(self.vehiclesCount)
+                traci.vehicle.addLegacy(vehicleId, connection.routeId, lane=connection.fromLane,
+                                        speed=5.0, typeID="CarA")
+                self.vehiclesCount += 1
 
     def run(self):
         self.running = True
@@ -61,6 +59,15 @@ class Runner:
         traci.close()
         sys.stdout.flush()
         self.running = False
+
+    def performNonTrainingStep(self, selectedPhase):
+        rewards = self.setSemaphore(selectedPhase)
+        for step in range(Utils.SEMAPHORE_DECISION.value):
+            self.addVehicles()
+            traci.simulationStep()
+            rewards += self.getReward()
+
+        return rewards * 0.2
 
     def performStep(self, selectedPhase):
         rewards = self.setSemaphore(selectedPhase)

@@ -45,7 +45,7 @@ class Agent(object):
                  learningStepsToTake):
         self.actionSpace = [move.value for move in MoveType]
         self.numberOfActions = numberOfActions
-        self.epsilon = 0.05
+        self.epsilon = 0.040854
         self.epsilonDecrease = 0.9999
         self.epsilonMin = 0.001
         self.batchSize = batchSize
@@ -68,7 +68,8 @@ class Agent(object):
         if rand <= self.epsilon:
             action = np.random.choice(self.actionSpace)
         else:
-            actions = self.qEval.predict([state], verbose=None)
+            input_data = np.reshape(state, (1, 37))
+            actions = self.qEval.predict_on_batch(input_data)
             action = np.argmax(actions)
 
         if self.epsilon > self.epsilonMin and currentTime >= 5000:
@@ -77,7 +78,8 @@ class Agent(object):
         return action
 
     def chooseBestAction(self, state):
-        actions = self.qEval.predict([state], verbose=None)
+        input_data = np.reshape(state, (1, 37))
+        actions = self.qEval.predict_on_batch(input_data)
         return np.argmax(actions)
 
 
@@ -111,7 +113,7 @@ class Agent(object):
         print("Saving model...")
         self.qEval.save(self.modelFile)
         if Utils.SAVE_TO_DRIVE.value:
-            os.system("mv dqn_model.h5 gdrive/MyDrive/")
+            os.system("mv {0} gdrive/MyDrive/".format(self.modelFile))
         print("Model saved")
         self.saveReplayBuffer()
 
@@ -127,7 +129,7 @@ class Agent(object):
                         print(self.memory.rewardMemory[phase][action][i], file=memory)
                         print(json.dumps(self.memory.newStateMemory[phase][action][i], cls=NumpyArrayEncoder), file=memory)
         if Utils.SAVE_TO_DRIVE.value:
-            os.system("mv replay_buffer.txt gdrive/MyDrive/")
+            os.system("mv {0} gdrive/MyDrive/".format(self.memoryFile))
         print("Replay memory saved.")
 
     def loadModel(self):
@@ -179,7 +181,7 @@ class Agent(object):
 
             if not useAverage:
                 input_data = np.reshape(state, (1, 37))
-                target = self.qEval.predict([input_data], verbose=None)
+                target = self.qEval.predict_on_batch(input_data)
             else:
                 target = np.copy(np.array([averageReward]))
 
@@ -200,7 +202,7 @@ class Agent(object):
 
     def getNextEstimatedReward(self, nextState):
         input_data = np.reshape(nextState, (1, 37))
-        return np.max(self.qEval_bar.predict_on_batch([input_data]))
+        return np.max(self.qEval_bar.predict_on_batch(input_data))
 
     def buildFromMainNetwork(self):
         self.qEval_bar = clone_model(self.qEval)

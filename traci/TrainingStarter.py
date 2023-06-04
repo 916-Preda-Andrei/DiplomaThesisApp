@@ -72,7 +72,7 @@ if __name__ == "__main__":
 
     # scores = []
     print("Starting training...")
-    for learningStep in range(Utils.LEARNING_STEPS.value):
+    for learningStep in range(Utils.STARTING_STEP.value, Utils.LEARNING_STEPS.value):
         print("Learning step #", learningStep, "started.")
         done = False
         score = 0.0

@@ -30,7 +30,7 @@ def checkSumoHome():
 def get_options():
     optParser = optparse.OptionParser()
     optParser.add_option("--nogui", action="store_true",
-                         default=True, help="run the commandline version of sumo")
+                         default=False, help="run the commandline version of sumo")
 
     options, args = optParser.parse_args()
     return options
@@ -48,11 +48,11 @@ class Utils(Enum):
     LOAD_MODEL = True
     LOAD_REPLAY_BUFFER = True
     SAVE_TO_DRIVE = True
-    STARTING_EPISODE = 0
     EPISODES = 5000
     PRE_TRAINING_EPISODES = 1000
     TOTAL_ITERATION_STEPS = 4000
     TOTAL_ITERATION_STEPS_PRE_TRAINING = 2000
+    STARTING_STEP = 1
     LEARNING_STEPS = 10
 
     # Learning rate
@@ -72,12 +72,12 @@ class Utils(Enum):
     SAMPLE_SIZE_PRETRAIN = 10000
     BATCH_SIZE = 20
 
-    MODEL_FILENAME = "dqn_model.h5"
-    MEMORY_FILENAME = "replay_buffer.txt"
+    MODEL_FILENAME = "dqn_model_1LS.h5"
+    MEMORY_FILENAME = "replay_buffer_1LS.txt"
     MODEL_PNG = "training.png"
 
-    PATH_TO_SUMOCFG_FILE = "creators/sumo_files/app.sumocfg"
-    PATH_TO_SUMOCFG_FILE_TRAINING = "creators/sumo_files/cross_train.sumocfg"
+    PATH_TO_SUMOCFG_FILE = "creators/sumo_files/cross_pretrain.sumocfg"
+    PATH_TO_SUMOCFG_FILE_TRAINING = "creators/sumo_files/cross_pretrain.sumocfg"
     PATH_TO_SUMOCFG_FILE_PRE_TRAINING = "creators/sumo_files/cross_pretrain.sumocfg"
     STEPS_UNTIL_FIRST_OBSERVATION = 30  # 4 * 30 + 3 * 3 = 129
 

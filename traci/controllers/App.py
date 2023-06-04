@@ -55,22 +55,23 @@ class App:
                       filename=Utils.MODEL_FILENAME.value, memoryFilename=Utils.MEMORY_FILENAME.value,
                       learningStepsToTake=Utils.LEARNING_STEPS.value)
         agent.loadModel()
-        env.createFrom(self.networkCreator, self.runner, self.streets)
-
-        sumoBinary = getSumoBinary()
-        traci.start([sumoBinary, "-c", Utils.PATH_TO_SUMOCFG_FILE.value,
-                     "--tripinfo-output", "app.tripinfo.xml"])
+        # env.createFrom(self.networkCreator, self.runner, self.streets)
+        #
+        # sumoBinary = getSumoBinary()
+        # traci.start([sumoBinary, "-c", Utils.PATH_TO_SUMOCFG_FILE.value,
+        #              "--tripinfo-output", "app.tripinfo.xml"])
         thread = Thread(target=self.runOptimized, args=(env, agent))
         thread.start()
 
         return "Successfully started SUMO Simulator", 200
 
     def runOptimized(self, env, agent):
-        observation = env.warmUp()
+        observation = env.reset()
         try:
-            while traci.simulation.getMinExpectedNumber() > 0:
+            done = False
+            while not done:
                 action = agent.chooseBestAction(observation)
-                newObservation, reward = env.nonTrainingStep(action)
+                newObservation, reward, done = env.step(action)
                 observation = newObservation
         except:
             print("Connection was closed by SUMO")
