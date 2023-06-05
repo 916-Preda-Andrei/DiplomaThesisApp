@@ -68,7 +68,7 @@ class Agent(object):
         if rand <= self.epsilon:
             action = np.random.choice(self.actionSpace)
         else:
-            input_data = np.reshape(state, (1, 37))
+            input_data = np.reshape(state, (1, self.inputDimensions))
             actions = self.qEval.predict_on_batch(input_data)
             action = np.argmax(actions)
 
@@ -78,7 +78,7 @@ class Agent(object):
         return action
 
     def chooseBestAction(self, state):
-        input_data = np.reshape(state, (1, 37))
+        input_data = np.reshape(state, (1, self.inputDimensions))
         actions = self.qEval.predict_on_batch(input_data)
         return np.argmax(actions)
 
@@ -104,10 +104,11 @@ class Agent(object):
         sampleWeight = np.ones(len(Y))
         Xs, Y, _ = unison_shuffled_copies(Xs, Y, sampleWeight)
 
-        self.trainNetwork(Xs, Y, preTraining)
+        loss = self.trainNetwork(Xs, Y, preTraining)
         self.q_bar_outdated += 1
 
         self.memory.resize(preTraining)
+        return loss
 
     def saveModel(self):
         print("Saving model...")
@@ -180,7 +181,7 @@ class Agent(object):
             totalReward = reward + gamma * nextReward
 
             if not useAverage:
-                input_data = np.reshape(state, (1, 37))
+                input_data = np.reshape(state, (1, self.inputDimensions))
                 target = self.qEval.predict_on_batch(input_data)
             else:
                 target = np.copy(np.array([averageReward]))
@@ -195,13 +196,14 @@ class Agent(object):
         batchSize = min(self.batchSize, len(Y))
         earlyStopping = EarlyStopping(monitor='val_loss', patience=10, verbose=0, mode='min')
         print("Training the network...")
-        self.qEval.fit(Xs, Y, batch_size=batchSize, epochs=episodes, shuffle=False, verbose=1, validation_split=0.3, callbacks=[earlyStopping])
+        history = self.qEval.fit(Xs, Y, batch_size=batchSize, epochs=episodes, shuffle=False, verbose=1, validation_split=0.3, callbacks=[earlyStopping])
         print("Network trained.")
         if preTraining:
             self.saveModel()
+        return history.history['loss'][-1]
 
     def getNextEstimatedReward(self, nextState):
-        input_data = np.reshape(nextState, (1, 37))
+        input_data = np.reshape(nextState, (1, self.inputDimensions))
         return np.max(self.qEval_bar.predict_on_batch(input_data))
 
     def buildFromMainNetwork(self):

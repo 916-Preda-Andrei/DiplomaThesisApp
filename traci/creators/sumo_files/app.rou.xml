@@ -1,36 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <routes>
    <vType id="CarA" accel="0.8" decel="4.5" sigma="0.5" length="3" minGap="1" maxSpeed="16.67" guiShape="passenger"/>
-   <route id="route1" edges="E_1_0 E_0_3"/>
-   <route id="route2" edges="E_1_0 E_0_2"/>
-   <route id="route3" edges="E_1_0 E_0_4"/>
-   <route id="route4" edges="E_2_0 E_0_4"/>
-   <route id="route5" edges="E_2_0 E_0_1"/>
-   <route id="route6" edges="E_2_0 E_0_3"/>
-   <route id="route7" edges="E_3_0 E_0_2"/>
-   <route id="route8" edges="E_3_0 E_0_4"/>
-   <route id="route9" edges="E_3_0 E_0_1"/>
-   <route id="route10" edges="E_4_0 E_0_1"/>
-   <route id="route11" edges="E_4_0 E_0_3"/>
-   <route id="route12" edges="E_4_0 E_0_2"/>
-   <vehicle depart="0" id="I0" route="route5" type="CarA"/>
-   <vehicle depart="0" id="I1" route="route12" type="CarA"/>
-   <vehicle depart="0" id="I2" route="route6" type="CarA"/>
-   <vehicle depart="0" id="I3" route="route11" type="CarA"/>
-   <vehicle depart="0" id="I4" route="route8" type="CarA"/>
-   <vehicle depart="0" id="I5" route="route9" type="CarA"/>
-   <vehicle depart="0" id="I6" route="route3" type="CarA"/>
-   <vehicle depart="0" id="I7" route="route8" type="CarA"/>
-   <vehicle depart="0" id="I8" route="route12" type="CarA"/>
-   <vehicle depart="0" id="I9" route="route5" type="CarA"/>
-   <vehicle depart="0" id="I10" route="route8" type="CarA"/>
-   <vehicle depart="0" id="I11" route="route4" type="CarA"/>
-   <vehicle depart="0" id="I12" route="route6" type="CarA"/>
-   <vehicle depart="0" id="I13" route="route9" type="CarA"/>
-   <vehicle depart="0" id="I14" route="route7" type="CarA"/>
-   <vehicle depart="0" id="I15" route="route4" type="CarA"/>
-   <vehicle depart="0" id="I16" route="route5" type="CarA"/>
-   <vehicle depart="0" id="I17" route="route3" type="CarA"/>
-   <vehicle depart="0" id="I18" route="route6" type="CarA"/>
-   <vehicle depart="0" id="I19" route="route12" type="CarA"/>
+   <route id="route_1_2" edges="E_1_0 E_0_2"/>
+   <route id="route_1_3" edges="E_1_0 E_0_3"/>
+   <route id="route_1_4" edges="E_1_0 E_0_4"/>
+   <route id="route_2_1" edges="E_2_0 E_0_1"/>
+   <route id="route_2_3" edges="E_2_0 E_0_3"/>
+   <route id="route_2_4" edges="E_2_0 E_0_4"/>
+   <route id="route_3_1" edges="E_3_0 E_0_1"/>
+   <route id="route_3_2" edges="E_3_0 E_0_2"/>
+   <route id="route_3_4" edges="E_3_0 E_0_4"/>
+   <route id="route_4_1" edges="E_4_0 E_0_1"/>
+   <route id="route_4_2" edges="E_4_0 E_0_2"/>
+   <route id="route_4_3" edges="E_4_0 E_0_3"/>
+   <vehicle depart="0" id="I1" route="route_1_2" type="CarA"/>
+   <vehicle depart="0" id="I2" route="route_1_3" type="CarA"/>
+   <vehicle depart="0" id="I3" route="route_1_4" type="CarA"/>
+   <vehicle depart="0" id="I4" route="route_2_1" type="CarA"/>
+   <vehicle depart="0" id="I5" route="route_2_3" type="CarA"/>
+   <vehicle depart="0" id="I6" route="route_2_4" type="CarA"/>
+   <vehicle depart="0" id="I7" route="route_3_1" type="CarA"/>
+   <vehicle depart="0" id="I8" route="route_3_2" type="CarA"/>
+   <vehicle depart="0" id="I9" route="route_3_4" type="CarA"/>
+   <vehicle depart="0" id="I10" route="route_4_1" type="CarA"/>
+   <vehicle depart="0" id="I11" route="route_4_2" type="CarA"/>
+   <vehicle depart="0" id="I12" route="route_4_3" type="CarA"/>
 </routes>

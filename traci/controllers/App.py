@@ -17,10 +17,10 @@ class App:
     def __init__(self):
         self.networkCreator = None
         self.runner = None
-        self.streets = {}
+        self.semaphoreDuration = {}
 
     def createNetwork(self):
-        self.networkCreator = NetworkCreator(self.streets)
+        self.networkCreator = NetworkCreator()
         self.networkCreator.createNetworkFile()
 
     def start(self):
@@ -55,23 +55,30 @@ class App:
                       filename=Utils.MODEL_FILENAME.value, memoryFilename=Utils.MEMORY_FILENAME.value,
                       learningStepsToTake=Utils.LEARNING_STEPS.value)
         agent.loadModel()
-        # env.createFrom(self.networkCreator, self.runner, self.streets)
-        #
-        # sumoBinary = getSumoBinary()
-        # traci.start([sumoBinary, "-c", Utils.PATH_TO_SUMOCFG_FILE.value,
-        #              "--tripinfo-output", "app.tripinfo.xml"])
+        if not Utils.START_ON_TRAIN_DATA.value:
+            env.createFrom(self.networkCreator, self.runner, self.streets)
+
+            sumoBinary = getSumoBinary()
+            traci.start([sumoBinary, "-c", Utils.PATH_TO_SUMOCFG_FILE.value,
+                         "--tripinfo-output", "app.tripinfo.xml"])
         thread = Thread(target=self.runOptimized, args=(env, agent))
         thread.start()
 
         return "Successfully started SUMO Simulator", 200
 
     def runOptimized(self, env, agent):
-        observation = env.reset()
+        if Utils.START_ON_TRAIN_DATA.value:
+            observation = env.reset()
+        else:
+            observation = env.warmUp()
         try:
             done = False
             while not done:
                 action = agent.chooseBestAction(observation)
-                newObservation, reward, done = env.step(action)
+                if Utils.START_ON_TRAIN_DATA.value:
+                    newObservation, reward, done = env.step(action)
+                else:
+                    newObservation, reward = env.nonTrainingStep(action)
                 observation = newObservation
         except:
             print("Connection was closed by SUMO")
@@ -101,7 +108,7 @@ class App:
     def editLoads(self, loads):
         for connection in self.networkCreator.connections:
             for load in loads:
-                if load.fromEdge.value == connection.getFromEdge() and load.toEdge.value == connection.getToEdge():
+                if load.fromEdge.value == connection.fromEdge and load.toEdge.value == connection.toEdge:
                     connection.loadFactor = load.loadFactor * 0.01
                     break
 

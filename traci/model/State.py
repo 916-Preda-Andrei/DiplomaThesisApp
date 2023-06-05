@@ -1,6 +1,6 @@
 class State:
 
-    def __init__(self, carsForLane, waitingForLane, queueForLane, phase):
+    def __init__(self, carsForLane, waitingForLane, queueForLane, phase, freshChanged):
         self.stateList = []
         cars = []
         waiting = []
@@ -15,3 +15,4 @@ class State:
         self.stateList.extend(waiting)
         self.stateList.extend(queue)
         self.stateList.append(phase + 1.0)
+        self.stateList.append(1.0 if freshChanged else 0.0)

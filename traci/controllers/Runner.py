@@ -13,28 +13,34 @@ LANE_OUT_REGEX = "^E_[1234]_0_[012345]$"
 class Runner:
     def __init__(self, connections):
         self.connections = connections
+        self.lanes = self.getLanes()
         self.running = False
         self.currentSemaphorePhase = 0
         self.vehiclesCount = 0
         self.vehiclesLeft = set()
-        self.changedSemaphore = None
+        self.freshChanged = False
         self.enterTime = {}
 
     def setSemaphore(self, selectedPhase):
         rewards = 0.0
         if selectedPhase != self.currentSemaphorePhase:
-            self.changedSemaphore = True
+            wasFreshChange = self.freshChanged
+            changed = True
+
+            self.freshChanged = True
             self.currentSemaphorePhase += 1
             traci.trafficlight.setPhase("0", str(self.currentSemaphorePhase))
 
-            changed = True
             for i in range(Utils.YELLOW_LIGHT.value):
                 traci.simulationStep()
-                rewards += self.getReward(changed)
+                rewards += self.getReward(changed, wasFreshChange)
+                wasFreshChange = False
                 changed = False
+
             self.currentSemaphorePhase = selectedPhase
         else:
-            self.changedSemaphore = False
+            self.freshChanged = False
+
         traci.trafficlight.setPhase("0", str(self.currentSemaphorePhase))
         return rewards
 
@@ -52,7 +58,6 @@ class Runner:
         try:
             while traci.simulation.getMinExpectedNumber() > 0:
                 traci.simulationStep()
-                # self.addVehicles()
         except:
             print("Connection was closed by SUMO")
 
@@ -89,7 +94,6 @@ class Runner:
         try:
             while numberOfSteps > 0:
                 traci.simulationStep()
-                # self.addVehicles()
                 numberOfSteps -= 1
             self.getVehiclesEntered(traci.simulation.getTime())
             self.getVehiclesLeft()
@@ -98,7 +102,7 @@ class Runner:
             traci.close()
             sys.stdout.flush()
             self.running = False
-        self.currentSemaphorePhase = 6
+        self.currentSemaphorePhase = 0
 
     def changeLoadFactorForConnections(self, fromEdge, toEdge, newLoadFactor):
         for index in range(len(self.connections)):
@@ -108,23 +112,24 @@ class Runner:
             connection.loadFactor = newLoadFactor
             self.connections[index] = connection
 
-    def getReward(self, changed=False):
+    def getReward(self, changed=False, wasFreshChange=False):
         reward = 0.0
         self.getVehiclesEntered(traci.simulation.getTime())
         vehiclesLeft = self.getVehiclesLeft()
-        lanes = self.getLanes()
+        lanes = self.lanes
         reward += Utils.W1.value * self.getTotalQueueLength(lanes)
         reward += Utils.W2.value * self.getTotalDelay(lanes)
         reward += Utils.W3.value * self.getTotalWaitingTimesOfVehicles(lanes)
         reward += Utils.W4.value * (1.0 if changed else 0.0)
         reward += Utils.W5.value * len(vehiclesLeft)
         reward += Utils.W6.value * self.getTravelTimeDuration(vehiclesLeft)
+        reward += Utils.W7.value * (1.0 if wasFreshChange else 0.0)
         return reward
 
     def getLanes(self):
         lanes = set()
         for connection in self.connections:
-            lanes.add(connection.getLaneId())
+            lanes.add(connection.laneId)
         return list(lanes)
 
     def getTotalQueueLength(self, lanes):

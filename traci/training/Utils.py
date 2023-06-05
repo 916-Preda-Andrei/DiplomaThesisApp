@@ -45,6 +45,7 @@ def getSumoBinary():
 
 
 class Utils(Enum):
+    START_ON_TRAIN_DATA = True
     LOAD_MODEL = False
     LOAD_REPLAY_BUFFER = False
     SAVE_TO_DRIVE = True
@@ -53,27 +54,27 @@ class Utils(Enum):
     TOTAL_ITERATION_STEPS = 2000
     TOTAL_ITERATION_STEPS_PRE_TRAINING = 2000
     STARTING_STEP = 0
-    LEARNING_STEPS = 10
+    LEARNING_STEPS = 15
 
     # Learning rate
-    ALPHA = 0.001
+    ALPHA = 0.0005
 
     # Gamma
     GAMMA_PRETRAIN = 0
     GAMMA = 0.8
 
-    INPUT_DIMENSIONS = 37
+    INPUT_DIMENSIONS = 38
     NUMBER_OF_ACTIONS = 4
     MEMORY_AFTER_UPDATE = 1000
     UPDATE_PERIOD = 300
     UPDATE_WITH_TARGET = 5
     MEMORY_SIZE = TOTAL_ITERATION_STEPS * UPDATE_WITH_TARGET + MEMORY_AFTER_UPDATE
-    SAMPLE_SIZE = 300
+    SAMPLE_SIZE = 600
     SAMPLE_SIZE_PRETRAIN = 3000
-    BATCH_SIZE = 20
+    BATCH_SIZE = 64
 
-    MODEL_FILENAME = "dqn_model_modified.h5"
-    MEMORY_FILENAME = "replay_buffer_modified.txt"
+    MODEL_FILENAME = "dqn_model.h5"
+    MEMORY_FILENAME = "replay_buffer.txt"
     MODEL_PNG = "training.png"
 
     PATH_TO_SUMOCFG_FILE = "creators/sumo_files/cross_pretrain.sumocfg"
@@ -84,9 +85,8 @@ class Utils(Enum):
     SEMAPHORE_DECISION = 5
     YELLOW_LIGHT = 3
     DEFAULT_SEMAPHORE_DURATION = 30
-    INITIAL_VEHICLE_COUNT = 20
 
-    initialSemaphorePhases = [MoveType.NSR1, MoveType.WER2, MoveType.L1R1, MoveType.L2R2]
+    MOVE_TYPES_IN_ORDER = [MoveType.NSR1, MoveType.WER2, MoveType.L1R1, MoveType.L2R2]
 
     # Weights for reward
     W1 = -0.4
@@ -95,6 +95,7 @@ class Utils(Enum):
     W4 = -5.0
     W5 = 1.0
     W6 = 1.0
+    W7 = 1.0
 
     # Vehicle
     VEHICLE_SPEED = 5.0
