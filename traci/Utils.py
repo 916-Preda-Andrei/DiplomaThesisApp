@@ -6,17 +6,6 @@ from enum import Enum
 from sumolib import checkBinary
 
 from model.MoveType import MoveType
-from model.StreetType import StreetType
-
-directionMapper = {(1, 2): [MoveType.WER2], (1, 3): [MoveType.WER2, MoveType.L2R2], (1, 4): [MoveType.L1R1],
-                   (2, 1): [MoveType.WER2],
-                   (2, 3): [MoveType.L1R1], (2, 4): [MoveType.WER2, MoveType.L2R2], (3, 1): [MoveType.L2R2],
-                   (3, 2): [MoveType.L1R1, MoveType.NSR1],
-                   (3, 4): [MoveType.NSR1], (4, 1): [MoveType.NSR1, MoveType.L1R1], (4, 2): [MoveType.L2R2],
-                   (4, 3): [MoveType.NSR1]}
-
-allMoveTypes = [MoveType.NSR1, MoveType.WER2, MoveType.L1R1, MoveType.L2R2]
-allStreetTypes = [StreetType.WEST, StreetType.EAST, StreetType.SOUTH, StreetType.NORTH]
 
 
 def checkSumoHome():
@@ -30,7 +19,7 @@ def checkSumoHome():
 def get_options():
     optParser = optparse.OptionParser()
     optParser.add_option("--nogui", action="store_true",
-                         default=True, help="run the commandline version of sumo")
+                         default=False, help="run the commandline version of sumo")
 
     options, args = optParser.parse_args()
     return options
@@ -45,7 +34,6 @@ def getSumoBinary():
 
 
 class Utils(Enum):
-    START_ON_TRAIN_DATA = True
     LOAD_MODEL = False
     LOAD_REPLAY_BUFFER = False
     SAVE_TO_DRIVE = True
@@ -75,12 +63,11 @@ class Utils(Enum):
 
     MODEL_FILENAME = "dqn_model.h5"
     MEMORY_FILENAME = "replay_buffer.txt"
-    MODEL_PNG = "training.png"
 
-    PATH_TO_SUMOCFG_FILE = "creators/sumo_files/cross_pretrain.sumocfg"
+    PATH_TO_SUMOCFG_FILE = "creators/sumo_files/app.sumocfg"
     PATH_TO_SUMOCFG_FILE_TRAINING = "creators/sumo_files/cross_pretrain.sumocfg"
     PATH_TO_SUMOCFG_FILE_PRE_TRAINING = "creators/sumo_files/cross_pretrain.sumocfg"
-    STEPS_UNTIL_FIRST_OBSERVATION = 30  # 4 * 30 + 3 * 3 = 129
+    STEPS_UNTIL_FIRST_OBSERVATION = 30
 
     SEMAPHORE_DECISION = 5
     YELLOW_LIGHT = 3

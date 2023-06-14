@@ -3,50 +3,46 @@ from __future__ import print_function
 
 from threading import Thread
 
-import traci
-
 from controllers.Runner import Runner
 from creators.NetworkCreator import NetworkCreator
-from exceptions.TrafficAppException import TrafficAppException
-from training.Agent import Agent
-from training.Environment import Environment
-from training.Utils import Utils, getSumoBinary
+from optimization.Agent import Agent
+from controllers.Environment import Environment
+from Utils import Utils
 
 
-class App:
+class Service:
     def __init__(self):
         self.networkCreator = None
         self.runner = None
-        self.semaphoreDuration = {}
+        self.semaphoreDuration = None
 
     def createNetwork(self):
-        self.networkCreator = NetworkCreator()
+        self.networkCreator = NetworkCreator(self.semaphoreDuration)
         self.networkCreator.createNetworkFile()
 
-    def start(self):
+    def start(self, mode):
         if self.runner is not None and self.runner.running:
             return "SUMO already started", 405
 
         if self.networkCreator is None:
-            return "No network has been created yet", 404
-
+            self.createNetwork()
         self.runner = Runner(self.networkCreator.connections)
 
-        sumoBinary = getSumoBinary()
-        traci.start([sumoBinary, "-c", Utils.PATH_TO_SUMOCFG_FILE.value,
-                     "--tripinfo-output", "app.tripinfo.xml"])
-        thread = Thread(target=self.runner.run)
+        if mode == "normal":
+            self.runner.startSimulator(Utils.PATH_TO_SUMOCFG_FILE.value)
+        else:
+            self.runner.startSimulator(Utils.PATH_TO_SUMOCFG_FILE_PRE_TRAINING.value)
+
+        thread = Thread(target=self.runner.run, args=(mode,))
         thread.start()
 
         return "Successfully started SUMO Simulator", 200
 
-    def startOptimized(self):
+    def startOptimized(self, mode):
         if self.runner is not None and self.runner.running:
             return "SUMO already started", 405
 
-        if self.networkCreator is None:
-            return "No network has been created yet", 404
-
+        self.createNetwork()
         self.runner = Runner(self.networkCreator.connections)
         env = Environment()
         agent = Agent(alpha=Utils.ALPHA.value, numberOfActions=Utils.NUMBER_OF_ACTIONS.value,
@@ -55,27 +51,25 @@ class App:
                       filename=Utils.MODEL_FILENAME.value, memoryFilename=Utils.MEMORY_FILENAME.value,
                       learningStepsToTake=Utils.LEARNING_STEPS.value)
         agent.loadModel()
-        if not Utils.START_ON_TRAIN_DATA.value:
-            env.createFrom(self.networkCreator, self.runner, self.streets)
+        if mode == "normal":
+            env.createFrom(self.networkCreator, self.runner)
+            self.runner.startSimulator(Utils.PATH_TO_SUMOCFG_FILE.value)
 
-            sumoBinary = getSumoBinary()
-            traci.start([sumoBinary, "-c", Utils.PATH_TO_SUMOCFG_FILE.value,
-                         "--tripinfo-output", "app.tripinfo.xml"])
-        thread = Thread(target=self.runOptimized, args=(env, agent))
+        thread = Thread(target=self.runOptimized, args=(env, agent, mode))
         thread.start()
 
         return "Successfully started SUMO Simulator", 200
 
-    def runOptimized(self, env, agent):
-        if Utils.START_ON_TRAIN_DATA.value:
-            observation = env.reset()
+    def runOptimized(self, env, agent, mode):
+        if mode == "training":
+            observation = env.reset(preTraining=True)
         else:
             observation = env.warmUp()
         try:
             done = False
             while not done:
                 action = agent.chooseBestAction(observation)
-                if Utils.START_ON_TRAIN_DATA.value:
+                if mode == "training":
                     newObservation, reward, done = env.step(action)
                 else:
                     newObservation, reward = env.nonTrainingStep(action)
@@ -84,26 +78,6 @@ class App:
             print("Connection was closed by SUMO")
         finally:
             self.runner.endConnection()
-
-    def setStreets(self, streets):
-        if self.runner is not None and self.runner.running:
-            raise TrafficAppException("SUMO is running. No modifications can be made!")
-
-        for street in streets:
-            self.streets[street.streetType] = street
-
-        self.createNetwork()
-
-    def editStreets(self, streets):
-        if self.runner is not None and self.runner.running:
-            return "SUMO is running. No modifications can be made!", 200
-
-        for street in streets:
-            self.streets[street.streetType] = street
-
-        self.createNetwork()
-
-        return "Successfully edited the streets", 200
 
     def editLoads(self, loads):
         for connection in self.networkCreator.connections:
@@ -115,3 +89,11 @@ class App:
         if self.runner is not None:
             self.runner.connections = self.networkCreator.connections
         return "Successfully edited the connections", 200
+
+    def editSemaphores(self, semaphores):
+        if self.runner is not None and self.runner.running:
+            return "SUMO is started. Cannot edit semaphore program now.", 405
+
+        self.semaphoreDuration = semaphores
+        self.createNetwork()
+        return "Semaphores edited successfully.", 200

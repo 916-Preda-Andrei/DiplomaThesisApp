@@ -2,7 +2,7 @@ import random
 
 import numpy as np
 
-from training.Utils import Utils
+from Utils import Utils
 
 
 class ReplayBuffer(object):

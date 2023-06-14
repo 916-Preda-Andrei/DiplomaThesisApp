@@ -1,56 +1,76 @@
 <body>
     <div id = "road_info_div">
         <div id="north_div">
-            <div id="north_exit_div">
-                <img src="assets/front_south.png" alt="Cannot load" style="size: 30"/>
+            <div class="form-container">
+                <form>
+                    <mat-form-field appearance="fill">
+                    <mat-label>Program of the semaphore</mat-label>
+                    <mat-select [(ngModel)]="programList" name="program" (selectionChange)="refreshSemaphore()">
+                        <mat-option *ngFor="let program of programValues" [value]="program.value">
+                        {{program.viewValue}}
+                        </mat-option>
+                    </mat-select>
+                    </mat-form-field>
+                </form>
             </div>
-            <div id="north_left_div">
-                <img src="assets/turn_left_north.png" alt="Cannot load" style="size: 30"/>
-                <select id="north_left_load">
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                </select>
+            <div id="north_street">
+                <div id="north_exit_div">
+                    <img src="assets/front_south.png" alt="Cannot load" style="size: 30"/>
+                </div>
+                <div id="north_left_div">
+                    <img src="assets/turn_left_north.png" alt="Cannot load" style="size: 30"/>
+                    <select id="north_left_load">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+                </div>
+                <div id="north_front_div">
+                    <img src="assets/front_north.png" alt="Cannot load" style="size: 30"/>
+                    <select id="north_front_load">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+                </div>
+                <div id="north_right_div">
+                    <img src="assets/turn_right_north.png" alt="Cannot load" style="size: 30"/>
+                    <select id="north_right_load">
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+                </div>
             </div>
-            <div id="north_front_div">
-                <img src="assets/front_north.png" alt="Cannot load" style="size: 30"/>
-                <select id="north_front_load">
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                </select>
-            </div>
-            <div id="north_right_div">
-                <img src="assets/turn_right_north.png" alt="Cannot load" style="size: 30"/>
-                <select id="north_right_load">
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                </select>
+            <div id="checkbox">
+                <label>
+                  <input type="checkbox" [(ngModel)]="isChecked">
+                  Start on already generated data
+                </label>
             </div>
         </div>
         <div id="center_streets">

@@ -1,5 +1,5 @@
 from model.MoveType import MoveType
-from training.Utils import Utils
+from Utils import Utils
 
 NSR1_GREEN = "GGrrrrGGrrrr"
 NSR1_YELLOW = "yyrrrryyrrrr"

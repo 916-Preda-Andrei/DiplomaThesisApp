@@ -1,31 +1,13 @@
-import random
-
-import traci
-
 from controllers.Runner import Runner
 from creators.NetworkCreator import NetworkCreator
-from exceptions.TrafficAppException import TrafficAppException
-from model.MoveType import MoveType
 from model.State import State
-from model.Street import Street
-from training.Utils import Utils, directionMapper, getSumoBinary, allStreetTypes
-
-
-def collectCountDataForLane(lane):
-    return traci.lane.getLastStepVehicleNumber(lane)
-
-def collectWaitingDataForLane(lane):
-    return traci.lane.getWaitingTime(lane) / 60.0
-
-def collectQueueDataForLane(lane):
-    return traci.lane.getLastStepHaltingNumber(lane)
+from Utils import Utils
 
 
 class Environment:
     def __init__(self):
         self.networkCreator = None
         self.runner = None
-        self.lanesOnMoveType = {MoveType.NSR1: 0, MoveType.WER2: 0, MoveType.L1R1: 0, MoveType.L2R2: 0}
         self.remainingSteps = 0
 
     def createNetwork(self):
@@ -48,8 +30,7 @@ class Environment:
         else:
             sumoFile = Utils.PATH_TO_SUMOCFG_FILE.value
 
-        sumoBinary = getSumoBinary()
-        traci.start([sumoBinary, "-c", sumoFile, "--start", "--quit-on-end", "--waiting-time-memory", "10000"])
+        self.runner.startSimulator(sumoFile)
 
         return self.warmUp()
 
@@ -79,8 +60,9 @@ class Environment:
             computedLanes.add((connection.fromEdge, connection.fromLane))
 
             laneId = connection.laneId
-            carsForLane[laneId] = collectCountDataForLane(laneId)
-            waitingForLane[laneId] = collectWaitingDataForLane(laneId)
-            queueForLane[laneId] = collectQueueDataForLane(laneId)
+            carsForLane[laneId] = self.runner.collectCountDataForLane(laneId)
+            waitingForLane[laneId] = self.runner.collectWaitingDataForLane(laneId)
+            queueForLane[laneId] = self.runner.collectQueueDataForLane(laneId)
 
-        return State(carsForLane, waitingForLane, queueForLane, self.runner.currentSemaphorePhase // 2, self.runner.freshChanged).stateList
+        return State(carsForLane, waitingForLane, queueForLane, self.runner.currentSemaphorePhase // 2,
+                     self.runner.freshChanged).stateList

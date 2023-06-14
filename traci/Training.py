@@ -4,9 +4,9 @@ import os
 import matplotlib.pyplot as plt
 import traci
 
-from training.Agent import Agent
-from training.Environment import Environment
-from training.Utils import Utils
+from optimization.Agent import Agent
+from controllers.Environment import Environment
+from Utils import Utils
 
 DEFAULT_SCHEDULE = [2, 2, 2, 2]
 
@@ -82,13 +82,13 @@ if __name__ == "__main__":
     if Utils.LOAD_MODEL.value:
         agent.loadModel()
     else:
-        print("Starting pre-training...")
+        print("Starting pre-optimization...")
         agent = preTraining(env, agent)
-        print("End pre-training")
+        print("End pre-optimization")
 
     scores = []
     losses = []
-    print("Starting training...")
+    print("Starting optimization...")
     for learningStep in range(Utils.STARTING_STEP.value, Utils.LEARNING_STEPS.value):
         print("Learning step #", learningStep, "started.")
         done = False

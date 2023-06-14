@@ -14,14 +14,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { ToastrModule } from 'ngx-toastr';
 
 import { AppComponent } from './app.component';
-import { StartComponent } from './start/start.component';
 import { AppErrorDialogComponent } from './app-error-dialog/app-error-dialog.component';
 import { RunnerComponent } from './runner/runner.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    StartComponent,
     AppErrorDialogComponent,
     RunnerComponent
   ],

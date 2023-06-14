@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {map} from "rxjs/operators";
-import { Street } from './start/street';
+import { Semaphore } from './runner/semaphore';
 import { LoadFactor } from './runner/loadFactor';
 
 
@@ -20,17 +20,18 @@ export class Service {
     constructor(private http: HttpClient){
     }
 
-    startSumo(): Observable<Response> {
-        return this.http.get<Response>(this.backendUrl + "start");
+    startSumo(mode: string): Observable<Response> {
+        return this.http.get<Response>(this.backendUrl + "start/" + mode);
     }
 
-    startSumoOptimized(): Observable<Response> {
-        return this.http.get<Response>(this.backendUrl + "startOptimized");
+    startSumoOptimized(mode: string): Observable<Response> {
+        return this.http.get<Response>(this.backendUrl + "startOptimized/" + mode);
     }
 
-    editStreets(streets: Street[]): Observable<Response> {
-        const url = `${this.backendUrl}edit/streets`;
-        return this.http.post<Response>(url, streets);
+    editSemaphores(semaphores: Semaphore[]): Observable<Response> {
+        const url = `${this.backendUrl}edit/semaphores`;
+        console.log(semaphores);
+        return this.http.post<Response>(url, semaphores);
     }
     editLoads(loads: LoadFactor[]): Observable<Response> {
         const url = `${this.backendUrl}edit/loads`;

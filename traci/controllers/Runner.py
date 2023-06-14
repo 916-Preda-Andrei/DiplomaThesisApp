@@ -3,9 +3,8 @@ import re
 import sys
 
 import traci
-import traci.constants as tc
 
-from training.Utils import Utils
+from Utils import Utils, getSumoBinary
 
 LANE_OUT_REGEX = "^E_[1234]_0_[012345]$"
 
@@ -20,6 +19,11 @@ class Runner:
         self.vehiclesLeft = set()
         self.freshChanged = False
         self.enterTime = {}
+
+    def startSimulator(self, sumoFile):
+        sumoBinary = getSumoBinary()
+        traci.start([sumoBinary, "-c", sumoFile, "--start", "--quit-on-end", "--waiting-time-memory", "10000"])
+
 
     def setSemaphore(self, selectedPhase):
         rewards = 0.0
@@ -53,17 +57,16 @@ class Runner:
                                         speed=5.0, typeID="CarA")
                 self.vehiclesCount += 1
 
-    def run(self):
+    def run(self, mode):
         self.running = True
         try:
             while traci.simulation.getMinExpectedNumber() > 0:
+                if mode == "normal":
+                    self.addVehicles()
                 traci.simulationStep()
         except:
             print("Connection was closed by SUMO")
-
-        traci.close()
-        sys.stdout.flush()
-        self.running = False
+        self.endConnection()
 
     def performNonTrainingStep(self, selectedPhase):
         rewards = self.setSemaphore(selectedPhase)
@@ -80,7 +83,6 @@ class Runner:
         for step in range(Utils.SEMAPHORE_DECISION.value):
             traci.simulationStep()
             rewards += self.getReward()
-            # self.addVehicles()
 
         return rewards * 0.2
 
@@ -103,14 +105,6 @@ class Runner:
             sys.stdout.flush()
             self.running = False
         self.currentSemaphorePhase = 0
-
-    def changeLoadFactorForConnections(self, fromEdge, toEdge, newLoadFactor):
-        for index in range(len(self.connections)):
-            connection = self.connections[index]
-            if connection.fromEdge is not fromEdge or connection.toEdge is not toEdge:
-                continue
-            connection.loadFactor = newLoadFactor
-            self.connections[index] = connection
 
     def getReward(self, changed=False, wasFreshChange=False):
         reward = 0.0
@@ -177,3 +171,12 @@ class Runner:
             if re.search(LANE_OUT_REGEX, traci.vehicle.getLaneID(vehicle)):
                 if vehicle not in self.enterTime:
                     self.enterTime[vehicle] = currentTime
+
+    def collectCountDataForLane(self, lane):
+        return traci.lane.getLastStepVehicleNumber(lane)
+
+    def collectWaitingDataForLane(self, lane):
+        return traci.lane.getWaitingTime(lane) / 60.0
+
+    def collectQueueDataForLane(self, lane):
+        return traci.lane.getLastStepHaltingNumber(lane)

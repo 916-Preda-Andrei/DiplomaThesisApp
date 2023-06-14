@@ -48,10 +48,20 @@ button{
 }
 #north_div{
     display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-content: flex-start;
+    align-content: center;
+    align-items: center;
+    width: 90%;
+    height: 30%;
+}
+#north_street{
+    display: flex;
     flex-direction: row-reverse;
     justify-content: center;
     border-bottom: 2px solid black;
-    height: 30%;
+    height: 100%;
 }
 #south_div{
     display: flex;
@@ -330,4 +340,28 @@ p{
     border: 2px solid black;    
     margin-right: 1%;
     background-color: green;
+}
+
+.form-container {
+    width: 360px;
+    margin-right: 10%;
+  }
+
+.form-container mat-form-field {
+    width: 100%;
+}
+
+.form-container mat-label {
+    color: #333;
+}
+
+#checkbox {
+    margin-left: 10%;
+    width: 24%;
+    padding: 1.5%;
+    font-size: medium;
+    font-weight: 700;
+    border-radius: 15px;
+    align-self: center;
+    background-color: rgba(15, 232, 250,0.7);
 }

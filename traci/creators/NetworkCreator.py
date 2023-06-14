@@ -2,7 +2,7 @@ import subprocess
 
 from creators.TrafficLightsCreator import TrafficLightsCreator
 from model.Connection import Connection
-from training.Utils import Utils
+from Utils import Utils
 
 
 class NetworkCreator:
@@ -16,13 +16,7 @@ class NetworkCreator:
 
         self.connections = self.generateData()
 
-    def convertToMap(self, edges):
-        edgesMap = {}
-        for edge in edges:
-            edgesMap[(edge.fromPoint, edge.toPoint)] = edge
-        return edgesMap
-
-    def generateData(self, ):
+    def generateData(self):
         connections = self.createConnections()
         TrafficLightsCreator(self.semaphoreDuration)
         return connections

@@ -6,11 +6,11 @@ from json import JSONEncoder
 import numpy as np
 from keras.layers import Dense, Activation
 from keras.models import Sequential, load_model, clone_model
-from keras.optimizers import Adam, RMSprop
+from keras.optimizers import RMSprop
 from keras.callbacks import EarlyStopping
 from model.MoveType import MoveType
-from training.ReplayBuffer import ReplayBuffer
-from training.Utils import Utils
+from optimization.ReplayBuffer import ReplayBuffer
+from Utils import Utils
 
 
 class NumpyArrayEncoder(JSONEncoder):

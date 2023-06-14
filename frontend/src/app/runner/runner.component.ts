@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AppErrorDialogComponent } from '../app-error-dialog/app-error-dialog.component';
 import { LoadFactor } from './loadFactor';
 import { ToastrService } from 'ngx-toastr';
+import { Semaphore } from './semaphore';
 
 @Component({
   selector: 'app-runner',
@@ -12,6 +13,14 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class RunnerComponent {
   loadFactors: LoadFactor[] = [] 
+  programList: string[] = [];
+  programValues = [
+    {value: ['NSR1','30', 'WER2', '30', 'L1R1', '30', 'L2R2', '30'], viewValue: 'NSR1:30, WER2:30, L1R1:30, L2R2:30'},
+    {value: ['NSR1','10', 'WER2', '10', 'L1R1', '10', 'L2R2', '10'], viewValue: 'NSR1:10, WER2:10, L1R1:10, L2R2:10'},
+    {value: ['NSR1','30', 'WER2', '10', 'L1R1', '20', 'L2R2', '10'], viewValue: 'NSR1:30, WER2:10, L1R1:20, L2R2:10'},
+  ];
+
+  isChecked = false;
 
   constructor(private service: Service, private dialog: MatDialog, private toastr: ToastrService) { 
   }
@@ -20,7 +29,7 @@ export class RunnerComponent {
   }
 
   start_normal(): void {
-    this.service.startSumo().subscribe( response => {
+    this.service.startSumo(this.getMode()).subscribe( response => {
       if (response.status === 404){
           this.openErrorDialog("No network has been created yet!");
       }
@@ -32,7 +41,7 @@ export class RunnerComponent {
 
   start_optimized(): void {
 
-    this.service.startSumoOptimized().subscribe( response => {
+    this.service.startSumoOptimized(this.getMode()).subscribe( response => {
       console.log(response.status);
       if (response.status === 404){
         this.openErrorDialog("No network has been created yet!");
@@ -79,6 +88,35 @@ export class RunnerComponent {
           this.openErrorDialog("There was a problem in editing the loads!");
         }
     });
+  }
+
+  refreshSemaphore(): void {
+    const nsr1Duration = this.programList[1];
+    const wer2Duration = this.programList[3];
+    const l1r1Duration = this.programList[5];
+    const l2r2Duration = this.programList[7];
+
+    const semaphores: Semaphore[] = [];
+    semaphores.push({moveType: 'NSR1', duration: nsr1Duration});
+    semaphores.push({moveType: 'WER2', duration: wer2Duration});
+    semaphores.push({moveType: 'L1R1', duration: l1r1Duration});
+    semaphores.push({moveType: 'L2R2', duration: l2r2Duration});
+
+    this.service.editSemaphores(semaphores).subscribe( response => {
+      if(response.status === 200){
+        this.toastr.success('Program succesfully edited!', 'Notification');
+      }
+      else{
+        this.openErrorDialog("There was a problem in editing the traffic lights program!");
+      }
+  });;
+  }
+
+  getMode(): string {
+    if (this.isChecked){
+      return "training";
+    }
+    return "normal";
   }
 
   openErrorDialog(message: string) {
